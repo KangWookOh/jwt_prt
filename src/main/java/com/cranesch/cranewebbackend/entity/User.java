@@ -21,7 +21,7 @@ public class User {
 
     private String User_Birth;
 
-    private Long User_StdId;
+    private String User_StdId;
 
     @Enumerated(value = EnumType.STRING) //
     private Session Session;
@@ -32,13 +32,13 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private User_Role User_Role;
 
-    private Long User_Th;
+    private int User_Th;
 
     private String User_Num;
 
     @Builder
-    public User(String User_name, String User_Birth, Long User_StdId, Session Session, String User_Dept,
-                User_Role User_role, Long User_Th, String User_Num)
+    public User(String User_name, String User_Birth, String User_StdId, Session Session, String User_Dept,
+                User_Role User_role, int User_Th, String User_Num)
     {
         this.User_name = User_name;
         this.User_Birth = User_Birth;

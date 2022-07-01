@@ -26,8 +26,9 @@ public class Board extends BaseTimeEntity{
     @Enumerated(value = EnumType.STRING)
     private Board_Type Board_type;
 
+    @JoinColumn(name = "User_id", nullable = false)
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    User user;
+    private User user_id;
 
     @Builder
     public Board(String title, String contents, Board_Type type){
