@@ -23,7 +23,8 @@ public class Picture {
     private Gallery gallery;
 
     @Builder
-    public Picture(String url){
-        this.Picture_url = url;
+    public Picture(String Picture_url, Gallery gallery){
+        this.Picture_url = Picture_url;
+        this.gallery = gallery;
     }
 }

@@ -25,8 +25,10 @@ public class Reply extends BaseTimeEntity{
     Board board;
 
     @Builder
-    public Reply(String comment){
-        this.Reply_comment = comment;
+    public Reply(String Reply_comment, User user, Board board){
+        this.Reply_comment = Reply_comment;
+        this.user = user;
+        this.board = board;
     }
 
 }

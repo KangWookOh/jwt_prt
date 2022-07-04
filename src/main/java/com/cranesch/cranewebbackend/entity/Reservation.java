@@ -31,10 +31,12 @@ public class Reservation {
     private Team Team_id;
 
     @Builder
-    private Reservation(LocalDateTime Rs_date, LocalDateTime Rs_start, LocalDateTime Rs_finish)
+    private Reservation(User user_id, LocalDateTime Rs_date, LocalDateTime Rs_start, LocalDateTime Rs_finish, Team team_id)
     {
+        this.User_id = user_id;
         this.Rs_date = Rs_date;
         this.Rs_start = Rs_start;
         this.Rs_finish = Rs_finish;
+        this.Team_id = team_id;
     }
 }

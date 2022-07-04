@@ -19,6 +19,11 @@ public class AccountDto {
     private boolean Echeck;
 
     public Account toEntity(){
-        return Account.builder().user(user).Email(Email).Password(Password).Echeck(Echeck).build();
+        return Account.builder()
+                .user(user)
+                .Email(Email)
+                .Password(Password)
+                .Echeck(Echeck)
+                .build();
     }
 }

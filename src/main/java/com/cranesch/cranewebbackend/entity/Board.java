@@ -31,9 +31,10 @@ public class Board extends BaseTimeEntity{
     private User user_id;
 
     @Builder
-    public Board(String title, String contents, Board_Type type){
-        this.Board_title = title;
-        this.Board_contents = contents;
-        this.Board_type = type;
+    public Board(User user_id, String Board_title, String Board_contents, Board_Type Board_type){
+        this.user_id = user_id;
+        this.Board_title = Board_title;
+        this.Board_contents = Board_contents;
+        this.Board_type = Board_type;
     }
 }

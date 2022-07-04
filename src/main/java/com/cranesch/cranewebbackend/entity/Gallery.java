@@ -33,9 +33,11 @@ public class Gallery {
     Music music;
 
     @Builder
-    public Gallery(String title, String contents, Gallery_Type type){
-        this.Gallery_title = title;
-        this.Gallery_content = contents;
-        this.gallery_type = type;
+    public Gallery(String Gallery_title, String Gallery_contents, Gallery_Type Gallery_type, User user, Music music){
+        this.Gallery_title = Gallery_title;
+        this.Gallery_content = Gallery_contents;
+        this.gallery_type = Gallery_type;
+        this.user = user;
+        this.music = music;
     }
 }

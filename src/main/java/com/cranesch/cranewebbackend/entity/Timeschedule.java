@@ -30,9 +30,10 @@ public class Timeschedule {
     private User user;
 
     @Builder
-    public Timeschedule(String sub, LocalDateTime start, LocalDateTime end){
+    public Timeschedule(String sub, LocalDateTime start, LocalDateTime end, User user){
         this.Time_sub = sub;
         this.Time_start = start;
         this.Time_end = end;
+        this.user = user;
     }
 }

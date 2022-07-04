@@ -18,7 +18,7 @@ public class UserService {
 
     @Transactional
     public Long SignUp(UserDto Udto, AccountDto Adto){
-        Long user_id = userRepository.save(Udto.toEntity()).getUser_id();
+        //Long user_id = userRepository.save(Udto.toEntity()).getUser_id();
         Adto.setUser(Udto.toEntity());
         return accountRepository.save(Adto.toEntity()).getID();
     }

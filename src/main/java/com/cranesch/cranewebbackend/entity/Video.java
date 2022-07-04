@@ -20,12 +20,12 @@ public class Video {
     private String Video_url;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    //이 게맞나 요?
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
     @Builder
-    public Video(String url){
-        this.Video_url = url;
+    public Video(String Video_url, Gallery gallery){
+        this.Video_url = Video_url;
+        this.gallery = gallery;
     }
 }

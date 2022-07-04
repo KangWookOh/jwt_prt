@@ -28,8 +28,10 @@ public class Match {
     private Team team;
 
     @Builder
-    private Match(Team_Role role)
+    private Match(Team_Role role, User user_id, Team team)
     {
         this.Match_role = role;
+        this.User_id = user_id;
+        this.team = team;
     }
 }

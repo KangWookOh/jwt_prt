@@ -27,19 +27,19 @@ public class UserServiceTest {
     @Test
     public void test(){
         UserDto Udto = new UserDto();
-        Udto.setUser_name("###");
-        Udto.setUser_birth("########");
-        Udto.setUser_th(0);
-        Udto.setUser_num("");
-        Udto.setUser_dept("#######");
+        Udto.setUser_name("test_name");
+        Udto.setUser_birth("220704");
+        Udto.setUser_th(40);
+        Udto.setUser_num("010-0000-0000");
+        Udto.setUser_dept("User_dept");
         Udto.setUser_role(User_Role.ADMIN);
-        Udto.setUser_stdId("########");
+        Udto.setUser_stdId("20000000");
         Udto.setSession(Session.BASS);
 
         AccountDto Adto = new AccountDto();
         Adto.setEmail("########@####.com");
         Adto.setEcheck(true);
-        Adto.setPassword("#########################################################################");
+        Adto.setPassword("########");
 
         userService.SignUp(Udto,Adto);
     }

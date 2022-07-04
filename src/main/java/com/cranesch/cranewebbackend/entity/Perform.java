@@ -28,10 +28,10 @@ public class Perform {
     private String Perform_place;
 
     @Builder
-    public Perform(String name, LocalDate date, Perform_Type type, String place){
-        this.Perform_name = name;
-        this.Perform_date = date;
-        this.perform_type = type;
-        this.Perform_place = place;
+    public Perform(String Perform_name, LocalDate Perform_date, Perform_Type perform_type, String Perform_place){
+        this.Perform_name = Perform_name;
+        this.Perform_date = Perform_date;
+        this.perform_type = perform_type;
+        this.Perform_place = Perform_place;
     }
 }

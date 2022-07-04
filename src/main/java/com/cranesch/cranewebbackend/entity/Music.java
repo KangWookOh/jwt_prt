@@ -26,8 +26,9 @@ public class Music {
     private Perform perform;
 
     @Builder
-    public Music(String name, String singer){
-        this.Music_name = name;
-        this.Music_singer = singer;
+    public Music(String Music_name, String Music_singer, Perform perform){
+        this.Music_name = Music_name;
+        this.Music_singer = Music_singer;
+        this.perform = perform;
     }
 }

@@ -29,7 +29,9 @@ public class PerformSession {
     private User user;
 
     @Builder
-    public PerformSession(Session session){
-        this.PerformSession_session = session;
+    public PerformSession(Session PerformSession_session, Music music, User user){
+        this.PerformSession_session = PerformSession_session;
+        this.music = music;
+        this.user = user;
     }
 }
