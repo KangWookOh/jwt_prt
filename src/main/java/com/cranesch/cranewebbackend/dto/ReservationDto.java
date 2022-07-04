@@ -20,7 +20,7 @@ public class ReservationDto {
 
     private Team Team_id;
 
-    private Reservation toEntity()
+    public Reservation toEntity()
     {
         return Reservation.builder().
                 user_id(User_id).

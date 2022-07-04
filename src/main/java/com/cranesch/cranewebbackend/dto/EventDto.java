@@ -26,7 +26,7 @@ public class EventDto {
 
     private boolean Event_isRoom;
 
-    private Event toEntity()
+    public Event toEntity()
     {
         return Event.builder().
                 User_id(User_id).

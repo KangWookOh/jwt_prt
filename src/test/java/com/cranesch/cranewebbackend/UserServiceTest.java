@@ -26,22 +26,24 @@ public class UserServiceTest {
 
     @Test
     public void test(){
-        UserDto Udto = new UserDto();
-        Udto.setUser_name("test_name");
-        Udto.setUser_birth("220704");
-        Udto.setUser_th(40);
-        Udto.setUser_num("010-0000-0000");
-        Udto.setUser_dept("User_dept");
-        Udto.setUser_role(User_Role.ADMIN);
-        Udto.setUser_stdId("20000000");
-        Udto.setSession(Session.BASS);
+        for(int i =0; i < 30; i++) {
+            UserDto Udto = new UserDto();
+            Udto.setUser_name("test_name");
+            Udto.setUser_birth("220704");
+            Udto.setUser_th(i);
+            Udto.setUser_num("010-0000-0000");
+            Udto.setUser_dept("User_dept");
+            Udto.setUser_role(User_Role.ADMIN);
+            Udto.setUser_stdId("20000000");
+            Udto.setSession(Session.BASS);
 
-        AccountDto Adto = new AccountDto();
-        Adto.setEmail("########@####.com");
-        Adto.setEcheck(true);
-        Adto.setPassword("########");
+            AccountDto Adto = new AccountDto();
+            Adto.setEmail("########@####.com");
+            Adto.setEcheck(true);
+            Adto.setPassword("########");
 
-        userService.SignUp(Udto,Adto);
+            userService.SignUp(Udto, Adto);
+        }
     }
 
 

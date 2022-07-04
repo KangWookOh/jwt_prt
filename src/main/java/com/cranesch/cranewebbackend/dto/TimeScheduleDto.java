@@ -17,7 +17,7 @@ public class TimeScheduleDto {
 
     private User user;
 
-    private Timeschedule toEntity()
+    public Timeschedule toEntity()
     {
         return Timeschedule.builder().
                 sub(Time_sub).

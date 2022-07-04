@@ -9,15 +9,15 @@ import java.time.LocalDateTime;
 @Data
 public class EqRepairDto {
     
-    private LocalDateTime EqR_date;
+    private String EqR_date;
 
-    private Long EqR_price;
+    private String EqR_price;
 
     private String EqR_memo;
 
     private Equipment Eq_id;
 
-    private EqRepair toEntity()
+    public EqRepair toEntity()
     {
         return EqRepair.builder().
                 EqR_date(EqR_date).

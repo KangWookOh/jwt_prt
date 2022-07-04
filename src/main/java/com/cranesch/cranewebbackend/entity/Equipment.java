@@ -18,13 +18,13 @@ public class Equipment {
 
     private String Eq_name;
 
-    private LocalDateTime Eq_birth;
+    private String Eq_birth;
 
     @Enumerated(value = EnumType.STRING) //
     private Session Eq_Session;
 
     @Builder
-    private Equipment (String Eq_name, LocalDateTime Eq_birth, Session Eq_Session)
+    private Equipment (String Eq_name, String Eq_birth, Session Eq_Session)
     {
         this.Eq_name = Eq_name;
         this.Eq_birth = Eq_birth;

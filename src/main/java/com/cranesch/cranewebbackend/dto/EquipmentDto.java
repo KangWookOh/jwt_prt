@@ -11,11 +11,11 @@ public class EquipmentDto {
 
     private String Eq_name;
 
-    private LocalDateTime Eq_birth;
+    private String Eq_birth;
 
     private Session Eq_Session;
 
-    private Equipment toEntity()
+    public Equipment toEntity()
     {
         return Equipment.builder().
                 Eq_name(Eq_name).

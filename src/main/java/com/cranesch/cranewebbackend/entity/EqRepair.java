@@ -16,9 +16,9 @@ public class EqRepair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long EqR_id;
 
-    private LocalDateTime EqR_date;
+    private String EqR_date;
 
-    private Long EqR_price;
+    private String EqR_price;
 
     private String EqR_memo;
 
@@ -27,7 +27,7 @@ public class EqRepair {
     private Equipment Eq_id;
 
     @Builder
-    private EqRepair(LocalDateTime EqR_date, Long EqR_price, String EqR_memo, Equipment Eq_id)
+    private EqRepair(String EqR_date, String EqR_price, String EqR_memo, Equipment Eq_id)
     {
         this.EqR_date= EqR_date;
         this.EqR_price = EqR_price;

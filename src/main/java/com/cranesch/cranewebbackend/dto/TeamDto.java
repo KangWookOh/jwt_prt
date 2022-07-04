@@ -14,7 +14,7 @@ public class TeamDto {
 
     private String Team_name;
 
-    private Team toEntity()
+    public Team toEntity()
     {
         return Team.builder().
                 Team_type(Team_type).

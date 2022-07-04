@@ -20,6 +20,10 @@ public class MatchDto {
 
     public Match toEntity()
     {
-        return Match.builder().role(Match_role).build();
+        return Match.builder().
+                role(Match_role).
+                user_id(user_id).
+                team(team).
+                build();
     }
 }
