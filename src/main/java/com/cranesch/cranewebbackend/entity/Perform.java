@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -19,7 +20,7 @@ public class Perform {
 
     private String Perform_name;
 
-    private LocalDate Perform_date;
+    private LocalDateTime Perform_date;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
@@ -28,7 +29,7 @@ public class Perform {
     private String Perform_place;
 
     @Builder
-    public Perform(String Perform_name, LocalDate Perform_date, Perform_Type perform_type, String Perform_place){
+    public Perform(String Perform_name, LocalDateTime Perform_date, Perform_Type perform_type, String Perform_place){
         this.Perform_name = Perform_name;
         this.Perform_date = Perform_date;
         this.perform_type = perform_type;

@@ -4,14 +4,14 @@ import com.cranesch.cranewebbackend.entity.Perform;
 import com.cranesch.cranewebbackend.entity.enums.Perform_Type;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class PerformDto {
 
     private String Perform_name;
 
-    private LocalDate Perform_date;
+    private LocalDateTime Perform_date;
 
     private Perform_Type perform_type;
 

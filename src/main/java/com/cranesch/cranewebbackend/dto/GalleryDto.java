@@ -11,7 +11,7 @@ public class GalleryDto {
 
     private String gallery_title;
 
-    private String gallery_comtnet;
+    private String gallery_content;
 
     private Gallery_Type gallery_type;
 
@@ -22,7 +22,7 @@ public class GalleryDto {
     public Gallery toEntity(){
         return Gallery.builder()
                 .Gallery_title(gallery_title)
-                .Gallery_contents(gallery_comtnet)
+                .Gallery_contents(gallery_content)
                 .Gallery_type(gallery_type)
                 .user(user)
                 .music(music)
