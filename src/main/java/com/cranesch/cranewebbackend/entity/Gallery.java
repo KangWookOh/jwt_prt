@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
-import com.cranesch.cranewebbackend.entity.enums.Gallery_Type;
+import com.cranesch.cranewebbackend.entity.enums.GalleryType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +14,17 @@ public class Gallery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Gallery_id;
+    private Long galleryId;
 
     @Column(nullable = false)
-    private String Gallery_title;
+    private String galleryTitle;
 
     @Column(nullable = false, columnDefinition = "Text")
-    private String Gallery_content;
+    private String galleryContent;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private Gallery_Type gallery_type;
+    private GalleryType galleryType;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     User user;
@@ -33,10 +33,10 @@ public class Gallery {
     Music music;
 
     @Builder
-    public Gallery(String Gallery_title, String Gallery_contents, Gallery_Type Gallery_type, User user, Music music){
-        this.Gallery_title = Gallery_title;
-        this.Gallery_content = Gallery_contents;
-        this.gallery_type = Gallery_type;
+    public Gallery(String galleryTitle, String galleryContents, GalleryType galleryType, User user, Music music){
+        this.galleryTitle = galleryTitle;
+        this.galleryContent = galleryContents;
+        this.galleryType = galleryType;
         this.user = user;
         this.music = music;
     }

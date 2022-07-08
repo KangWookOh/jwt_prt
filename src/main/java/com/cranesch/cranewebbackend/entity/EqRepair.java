@@ -3,10 +3,8 @@ package com.cranesch.cranewebbackend.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -14,24 +12,24 @@ import java.time.LocalDateTime;
 public class EqRepair {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long EqR_id;
+    private Long eqrId;
 
-    private String EqR_date;
+    private String eqrDate;
 
-    private String EqR_price;
+    private String eqrPrice;
 
-    private String EqR_memo;
+    private String eqRMemo;
 
-    @JoinColumn(name = "Eq_id")
+    @JoinColumn(name = "eqId")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Equipment Eq_id;
+    private Equipment eqId;
 
     @Builder
-    private EqRepair(String EqR_date, String EqR_price, String EqR_memo, Equipment Eq_id)
+    private EqRepair(String eqrDate, String eqrPrice, String eqrMemo, Equipment eqId)
     {
-        this.EqR_date= EqR_date;
-        this.EqR_price = EqR_price;
-        this.EqR_memo = EqR_memo;
-        this.Eq_id = Eq_id;
+        this.eqrDate = eqrDate;
+        this.eqrPrice = eqrPrice;
+        this.eqRMemo = eqrMemo;
+        this.eqId = eqId;
     }
 }

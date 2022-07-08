@@ -14,18 +14,18 @@ public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Video_id;
+    private Long VideoId;
 
     @Column(nullable = false)
-    private String Video_url;
+    private String videoUrl;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "gallery_id")
+    @JoinColumn(name = "galleryId")
     private Gallery gallery;
 
     @Builder
-    public Video(String Video_url, Gallery gallery){
-        this.Video_url = Video_url;
+    public Video(String videoUrl, Gallery gallery){
+        this.videoUrl = videoUrl;
         this.gallery = gallery;
     }
 }

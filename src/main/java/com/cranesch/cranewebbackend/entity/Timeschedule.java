@@ -14,26 +14,26 @@ public class Timeschedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Time_id;
+    private Long timeId;
 
     @Column(nullable = false)
-    private String Time_sub;
+    private String timeSub;
 
     @Column(nullable = false)
-    private LocalDateTime Time_start;
+    private LocalDateTime timeStart;
 
     @Column(nullable = false)
-    private LocalDateTime Time_end;
+    private LocalDateTime timeEnd;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_id")
+    @JoinColumn
     private User user;
 
     @Builder
-    public Timeschedule(String sub, LocalDateTime start, LocalDateTime end, User user){
-        this.Time_sub = sub;
-        this.Time_start = start;
-        this.Time_end = end;
+    public Timeschedule(String timeSub, LocalDateTime timeStart, LocalDateTime timeEnd, User user){
+        this.timeSub = timeSub;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
         this.user = user;
     }
 }

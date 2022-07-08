@@ -13,35 +13,35 @@ import java.time.LocalDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Event_id;
+    private Long eventId;
 
-    @JoinColumn(name = "User_id")
+    @JoinColumn(name = "userId")
     @ManyToOne
-    private User User_id;
+    private User userId;
 
-    @JoinColumn(name = "Team_id")
+    @JoinColumn(name = "teamId")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Team Team_id;
+    private Team teamId;
 
-    private LocalDateTime Event_startTime;
-    private LocalDateTime Event_endTime;
+    private LocalDateTime eventStartTime;
+    private LocalDateTime eventEndTime;
 
-    private String Event_title;
+    private String eventTitle;
 
-    private String Event_content;
+    private String eventContent;
 
-    private boolean Event_isRoom;
+    private boolean eventIsRoom;
 
     @Builder
-    private Event(User User_id, Team Team_id, LocalDateTime Event_startTime, LocalDateTime Event_endTime,
-                  String Event_title, String Event_content, boolean Event_isRoom)
+    private Event(User userId, Team teamId, LocalDateTime eventStartTime, LocalDateTime eventEndTime,
+                  String eventTitle, String eventContent, boolean eventIsRoom)
     {
-        this.User_id= User_id;
-        this.Team_id = Team_id;
-        this.Event_startTime = Event_startTime;
-        this.Event_endTime = Event_endTime;
-        this.Event_title = Event_title;
-        this.Event_content = Event_content;
-        this.Event_isRoom = Event_isRoom;
+        this.userId = userId;
+        this.teamId = teamId;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventTitle = eventTitle;
+        this.eventContent = eventContent;
+        this.eventIsRoom = eventIsRoom;
     }
 }

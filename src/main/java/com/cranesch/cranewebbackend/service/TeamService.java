@@ -2,7 +2,6 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.TeamDto;
-import com.cranesch.cranewebbackend.dto.UserDto;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.MatchRepository;
@@ -24,24 +23,24 @@ public class TeamService {
 
     @Transactional
     public Long CreatTeam(TeamDto teamDto){
-        return teamRepository.save(teamDto.toEntity()).getTeam_id();
+        return teamRepository.save(teamDto.toEntity()).getTeamId();
     }
 
     @Transactional
-    public Long AddTeamMember(MatchDto matchDto,Long team_id, Long user_id){
-        Optional<Team> optionalTeam = teamRepository.findById(team_id);
-        if(!optionalTeam.isPresent()){
+    public Long AddTeamMember(MatchDto matchDto,Long teamId, Long userId){
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if(optionalTeam.isEmpty()){
             throw new EntityExistsException("Team is not exist");
         }
 
-        Optional<User> optionalUser = userRepository.findById(user_id);
-        if(!optionalUser.isPresent()){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
             throw new EntityExistsException("User is not exist");
         }
 
         matchDto.setTeam(optionalTeam.get());
-        matchDto.setUser_id(optionalUser.get());
-        return matchRepository.save(matchDto.toEntity()).getMatch_id();
+        matchDto.setUser(optionalUser.get());
+        return matchRepository.save(matchDto.toEntity()).getMatchId();
     }
 
 

@@ -20,9 +20,9 @@ public class TimeScheduleTest {
     @Test
     public void ScheduleCreateTest(){
         TimeScheduleDto tdto = new TimeScheduleDto();
-        tdto.setTime_sub("창의공학설계");
-        tdto.setTime_start(LocalDateTime.of(2022,12,3,00,00,00));
-        tdto.setTime_end(LocalDateTime.of(2022,12,4,00,00,00));
+        tdto.setTimeSub("창의공학설계");
+        tdto.setTimeStart(LocalDateTime.of(2022,12,3,00,00,00));
+        tdto.setTimeEnd(LocalDateTime.of(2022,12,4,00,00,00));
 
         scheduleService.CreateTimeSchedule(tdto,Long.valueOf(1));
     }

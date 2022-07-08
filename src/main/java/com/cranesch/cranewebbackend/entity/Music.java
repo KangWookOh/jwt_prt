@@ -13,22 +13,22 @@ public class Music {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Music_id;
+    private Long musicId;
 
     @Column(nullable = false)
-    private String Music_name;
+    private String musicName;
 
     @Column(nullable = true)
-    private String Music_singer;
+    private String musicSinger;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "Perform_id")
+    @JoinColumn
     private Perform perform;
 
     @Builder
-    public Music(String Music_name, String Music_singer, Perform perform){
-        this.Music_name = Music_name;
-        this.Music_singer = Music_singer;
+    public Music(String musicName, String musicSinger, Perform perform){
+        this.musicName = musicName;
+        this.musicSinger = musicSinger;
         this.perform = perform;
     }
 }

@@ -20,17 +20,17 @@ public class EqService {
 
     @Transactional
     public Long CreateEq(EquipmentDto dto){
-        return equipmentRepository.save(dto.toEntity()).getEq_id();
+        return equipmentRepository.save(dto.toEntity()).getEqId();
     }
 
     @Transactional
-    public Long CreateEqR(EqRepairDto dto, Long Eq_id)
+    public Long CreateEqR(EqRepairDto dto, Long eqId)
     {
-        Optional<Equipment> optionalEquipment = equipmentRepository.findById(Eq_id);
+        Optional<Equipment> optionalEquipment = equipmentRepository.findById(eqId);
         if(!optionalEquipment.isPresent()){
             throw new EntityExistsException("Eq is not exist");
         }
-        dto.setEq_id(optionalEquipment.get());
-        return eqRepairRepository.save(dto.toEntity()).getEqR_id();
+        dto.setEqId(optionalEquipment.get());
+        return eqRepairRepository.save(dto.toEntity()).getEqrId();
     }
 }

@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
-import com.cranesch.cranewebbackend.entity.enums.Team_Role;
+import com.cranesch.cranewebbackend.entity.enums.TeamRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,24 +14,24 @@ import javax.persistence.*;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Match_id;
+    private Long matchId;
 
     @Column(nullable = false)
-    private Team_Role Match_role;
+    private TeamRole matchRole;
 
-    @JoinColumn(name = "User_id")
+    @JoinColumn
     @ManyToOne
-    private User User_id;
+    private User user;
 
-    @JoinColumn(name = "Team_id")
+    @JoinColumn
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Team team;
 
     @Builder
-    private Match(Team_Role role, User user_id, Team team)
+    private Match(TeamRole teamRole, User user, Team team)
     {
-        this.Match_role = role;
-        this.User_id = user_id;
+        this.matchRole = teamRole;
+        this.user = user;
         this.team = team;
     }
 }

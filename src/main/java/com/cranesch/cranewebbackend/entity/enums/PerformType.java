@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity.enums;
 
-public enum Perform_Type {
+public enum PerformType {
     REGULAR,
     OUTSIDE,
     FESTIVAL

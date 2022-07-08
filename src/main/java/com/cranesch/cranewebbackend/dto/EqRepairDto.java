@@ -4,26 +4,24 @@ import com.cranesch.cranewebbackend.entity.EqRepair;
 import com.cranesch.cranewebbackend.entity.Equipment;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class EqRepairDto {
     
-    private String EqR_date;
+    private String eqrDate;
 
-    private String EqR_price;
+    private String eqrPrice;
 
-    private String EqR_memo;
+    private String eqrMemo;
 
-    private Equipment Eq_id;
+    private Equipment eqId;
 
     public EqRepair toEntity()
     {
         return EqRepair.builder().
-                EqR_date(EqR_date).
-                EqR_price(EqR_price).
-                EqR_memo(EqR_memo).
-                Eq_id(Eq_id).
+                eqrDate(eqrDate).
+                eqrPrice(eqrPrice).
+                eqrMemo(eqrMemo).
+                eqId(eqId).
                 build();
     }
 }

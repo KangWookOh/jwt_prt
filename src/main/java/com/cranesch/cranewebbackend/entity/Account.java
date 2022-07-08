@@ -15,7 +15,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    @JoinColumn(name ="User_Id")
+    @JoinColumn(name ="userId")
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 

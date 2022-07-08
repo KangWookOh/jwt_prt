@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -14,20 +13,20 @@ import java.time.LocalDateTime;
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Eq_id;
+    private Long eqId;
 
-    private String Eq_name;
+    private String eqName;
 
-    private String Eq_birth;
+    private String eqBirth;
 
     @Enumerated(value = EnumType.STRING) //
-    private Session Eq_Session;
+    private Session eqSession;
 
     @Builder
-    private Equipment (String Eq_name, String Eq_birth, Session Eq_Session)
+    private Equipment (String eqName, String eqBirth, Session eqSession)
     {
-        this.Eq_name = Eq_name;
-        this.Eq_birth = Eq_birth;
-        this.Eq_Session = Eq_Session;
+        this.eqName = eqName;
+        this.eqBirth = eqBirth;
+        this.eqSession = eqSession;
     }
 }

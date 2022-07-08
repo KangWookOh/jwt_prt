@@ -13,18 +13,18 @@ public class Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Picture_id;
+    private Long pictureId;
 
     @Column(nullable = false)
-    private String Picture_url;
+    private String pictureUrl;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "Gallery_id")
+    @JoinColumn
     private Gallery gallery;
 
     @Builder
-    public Picture(String Picture_url, Gallery gallery){
-        this.Picture_url = Picture_url;
+    public Picture(String pictureUrl, Gallery gallery){
+        this.pictureUrl = pictureUrl;
         this.gallery = gallery;
     }
 }

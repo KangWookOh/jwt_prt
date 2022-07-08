@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
-import com.cranesch.cranewebbackend.entity.enums.User_Role;
+import com.cranesch.cranewebbackend.entity.enums.UserRole;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,40 +14,40 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long User_id;
+    private Long userId;
 
     @Column(nullable = false)
-    private String User_name;
+    private String userName;
 
-    private String User_Birth;
+    private String userBirth;
 
-    private String User_StdId;
+    private String userStdId;
 
     @Enumerated(value = EnumType.STRING) //
-    private Session Session;
+    private Session session;
 
-    private String User_Dept;
+    private String userDept;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private User_Role User_Role;
+    private UserRole userRole;
 
-    private int User_Th;
+    private int userTh;
 
-    private String User_Num;
+    private String userPhoneNum;
 
     @Builder
-    public User(String User_name, String User_Birth, String User_StdId, Session Session, String User_Dept,
-                User_Role User_role, int User_Th, String User_Num)
+    public User(String userName, String userBirth, String userStdId, Session session, String userDept,
+                UserRole userRole, int userTh, String userPhoneNum)
     {
-        this.User_name = User_name;
-        this.User_Birth = User_Birth;
-        this.User_StdId = User_StdId;
-        this.Session = Session;
-        this.User_Dept =User_Dept;
-        this.User_Role = User_role;
-        this.User_Th = User_Th;
-        this.User_Num = User_Num;
+        this.userName = userName;
+        this.userBirth = userBirth;
+        this.userStdId = userStdId;
+        this.session = session;
+        this.userDept =userDept;
+        this.userRole = userRole;
+        this.userTh = userTh;
+        this.userPhoneNum = userPhoneNum;
     }
 
 }

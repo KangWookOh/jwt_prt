@@ -3,17 +3,17 @@ package com.cranesch.cranewebbackend.dto;
 import com.cranesch.cranewebbackend.entity.Gallery;
 import com.cranesch.cranewebbackend.entity.Music;
 import com.cranesch.cranewebbackend.entity.User;
-import com.cranesch.cranewebbackend.entity.enums.Gallery_Type;
+import com.cranesch.cranewebbackend.entity.enums.GalleryType;
 import lombok.Data;
 
 @Data
 public class GalleryDto {
 
-    private String gallery_title;
+    private String galleryTitle;
 
-    private String gallery_content;
+    private String galleryContent;
 
-    private Gallery_Type gallery_type;
+    private GalleryType galleryType;
 
     private User user;
 
@@ -21,9 +21,9 @@ public class GalleryDto {
 
     public Gallery toEntity(){
         return Gallery.builder()
-                .Gallery_title(gallery_title)
-                .Gallery_contents(gallery_content)
-                .Gallery_type(gallery_type)
+                .galleryTitle(galleryTitle)
+                .galleryContents(galleryContent)
+                .galleryType(galleryType)
                 .user(user)
                 .music(music)
                 .build();

@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
-import com.cranesch.cranewebbackend.entity.enums.Team_Type;
+import com.cranesch.cranewebbackend.entity.enums.TeamType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,17 +17,17 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Team_id;
+    private Long teamId;
 
-    private Team_Type Team_type;
+    private TeamType teamType;
 
-    private String Team_name;
+    private String teamName;
 
     @Builder
-    private Team(Team_Type Team_type, String Team_name)
+    private Team(TeamType teamType, String teamName)
     {
-        this.Team_type = Team_type;
-        this.Team_name = Team_name;
+        this.teamType = teamType;
+        this.teamName = teamName;
     }
 
 }

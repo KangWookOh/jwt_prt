@@ -2,15 +2,13 @@ package com.cranesch.cranewebbackend;
 
 import com.cranesch.cranewebbackend.dto.AccountDto;
 import com.cranesch.cranewebbackend.dto.UserDto;
-import com.cranesch.cranewebbackend.entity.Account;
 import com.cranesch.cranewebbackend.entity.enums.Session;
-import com.cranesch.cranewebbackend.entity.enums.User_Role;
+import com.cranesch.cranewebbackend.entity.enums.UserRole;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import com.cranesch.cranewebbackend.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,13 +26,13 @@ public class UserServiceTest {
     public void test(){
         for(int i =0; i < 30; i++) {
             UserDto Udto = new UserDto();
-            Udto.setUser_name("test_name");
-            Udto.setUser_birth("220704");
-            Udto.setUser_th(i);
-            Udto.setUser_num("010-0000-0000");
-            Udto.setUser_dept("User_dept");
-            Udto.setUser_role(User_Role.ADMIN);
-            Udto.setUser_stdId("20000000");
+            Udto.setUserName("test_name");
+            Udto.setUserBirth("220704");
+            Udto.setUserTh(i);
+            Udto.setUserPhoneNum("010-0000-0000");
+            Udto.setUserDept("User_dept");
+            Udto.setUserRole(UserRole.ADMIN);
+            Udto.setUserStdId("20000000");
             Udto.setSession(Session.BASS);
 
             AccountDto Adto = new AccountDto();

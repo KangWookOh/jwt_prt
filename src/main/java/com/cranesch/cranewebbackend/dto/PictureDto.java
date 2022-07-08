@@ -7,13 +7,13 @@ import lombok.Data;
 @Data
 public class PictureDto {
 
-    private String Picture_url;
+    private String pictureUrl;
 
     private Gallery gallery;
 
     public Picture toEntity(){
         return Picture.builder()
-                .Picture_url(Picture_url)
+                .pictureUrl(pictureUrl)
                 .gallery(gallery)
                 .build();
     }

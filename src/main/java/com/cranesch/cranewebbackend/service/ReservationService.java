@@ -2,8 +2,6 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.EventDto;
 import com.cranesch.cranewebbackend.dto.ReservationDto;
-import com.cranesch.cranewebbackend.dto.TeamDto;
-import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.EventRepository;
@@ -27,44 +25,44 @@ public class ReservationService {
     private EventRepository eventRepository;
 
     @Transactional
-    public Long CreateTeamReservation(ReservationDto dto, Long Team_id) {
-        Optional<Team> optionalTeam = teamRepository.findById(Team_id);
-        if (!optionalTeam.isPresent()) {
+    public Long CreateTeamReservation(ReservationDto dto, Long teamId) {
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if (optionalTeam.isEmpty()) {
             throw new EntityExistsException("Team not exist");
         }
-        dto.setTeam_id(optionalTeam.get());
+        dto.setTeam(optionalTeam.get());
 
-        return reservationRepository.save(dto.toEntity()).getRs_id();
+        return reservationRepository.save(dto.toEntity()).getRsvId();
     }
 
 
     @Transactional
-    public Long CreateUserReservation(ReservationDto dto, Long User_id) {
-        Optional<User> optionalUser = userRepository.findById(User_id);
-        if (!optionalUser.isPresent()) {
+    public Long CreateUserReservation(ReservationDto dto, Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
             throw new EntityExistsException("User not exist");
         }
-        dto.setUser_id(optionalUser.get());
+        dto.setUser(optionalUser.get());
 
-        return reservationRepository.save(dto.toEntity()).getRs_id();
+        return reservationRepository.save(dto.toEntity()).getRsvId();
     }
 
     @Transactional
-    public Long CreateEvent(EventDto dto, Long User_id, Long Team_id)
+    public Long CreateEvent(EventDto dto, Long userId, Long teamId)
     {
-        Optional<User> optionalUser = userRepository.findById(User_id);
-        if(!optionalUser.isPresent()){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
             throw new EntityExistsException("User not found.");
         }
 
-        Optional<Team> optionalTeam = teamRepository.findById(Team_id);
-        if(!optionalTeam.isPresent())
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if(optionalTeam.isEmpty())
         {
             throw new EntityExistsException("Team not found");
         }
 
-        dto.setUser_id(optionalUser.get());
-        dto.setTeam_id(optionalTeam.get());
-        return eventRepository.save(dto.toEntity()).getEvent_id();
+        dto.setUserId(optionalUser.get());
+        dto.setTeamId(optionalTeam.get());
+        return eventRepository.save(dto.toEntity()).getEventId();
     }
 }

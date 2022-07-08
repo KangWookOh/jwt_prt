@@ -13,10 +13,10 @@ public class Reply extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Reply_id;
+    private Long replyId;
 
     @Column(nullable = false, columnDefinition = "Text")
-    private String Reply_comment;
+    private String replyComment;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     User user;
@@ -25,8 +25,8 @@ public class Reply extends BaseTimeEntity{
     Board board;
 
     @Builder
-    public Reply(String Reply_comment, User user, Board board){
-        this.Reply_comment = Reply_comment;
+    public Reply(String replyComment, User user, Board board){
+        this.replyComment = replyComment;
         this.user = user;
         this.board = board;
     }

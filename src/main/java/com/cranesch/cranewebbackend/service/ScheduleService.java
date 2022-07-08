@@ -18,15 +18,15 @@ public class ScheduleService {
     private UserRepository userRepository;
 
     @Transactional
-    public Long CreateTimeSchedule(TimeScheduleDto dto, Long User_id)
+    public Long CreateTimeSchedule(TimeScheduleDto dto, Long userId)
     {
-        Optional<User> optionalUser = userRepository.findById(User_id);
-        if(!optionalUser.isPresent()){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
             throw new EntityExistsException("User not Found");
         }
         dto.setUser(optionalUser.get());
 
-        return timescheduleRepository.save(dto.toEntity()).getTime_id();
+        return timescheduleRepository.save(dto.toEntity()).getTimeId();
     }
 
 }

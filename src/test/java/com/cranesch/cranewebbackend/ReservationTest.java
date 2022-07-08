@@ -22,9 +22,9 @@ public class ReservationTest {
     public void CreateTeamRsvTest()
     {
         ReservationDto trdto = new ReservationDto();
-        trdto.setRs_date(LocalDateTime.now());
-        trdto.setRs_start(LocalDateTime.of(2020,12,12,0,0,0));
-        trdto.setRs_finish(LocalDateTime.of(2020, 12, 12, 3,30, 0));
+        trdto.setRsvDate(LocalDateTime.now());
+        trdto.setRsvStart(LocalDateTime.of(2020,12,12,0,0,0));
+        trdto.setRsvFinish(LocalDateTime.of(2020, 12, 12, 3,30, 0));
 
         reservationService.CreateTeamReservation(trdto, Long.valueOf(1));
 
@@ -34,9 +34,9 @@ public class ReservationTest {
     public void CreateUserRsvTest()
     {
         ReservationDto urdto = new ReservationDto();
-        urdto.setRs_date(LocalDateTime.now());
-        urdto.setRs_start(LocalDateTime.of(2020,12,12,0,0,0));
-        urdto.setRs_finish(LocalDateTime.of(2020, 12, 12, 3,30, 0));
+        urdto.setRsvDate(LocalDateTime.now());
+        urdto.setRsvStart(LocalDateTime.of(2020,12,12,0,0,0));
+        urdto.setRsvFinish(LocalDateTime.of(2020, 12, 12, 3,30, 0));
 
         reservationService.CreateUserReservation(urdto, Long.valueOf(1));
     }
@@ -46,11 +46,11 @@ public class ReservationTest {
     {
         EventDto edto = new EventDto();
 
-        edto.setEvent_title("Festival Perform");
-        edto.setEvent_Content("2022 School Festival Perform");
-       edto.setEvent_startTime(LocalDateTime.of(2022,7,21,0,0,0));
-        edto.setEvent_endTime(LocalDateTime.of(2022,7,22,0,0,0));
-        edto.setEvent_isRoom(true);
+        edto.setEventTitle("Festival Perform");
+        edto.setEventContent("2022 School Festival Perform");
+       edto.setEventStartTime(LocalDateTime.of(2022,7,21,0,0,0));
+        edto.setEventEndTime(LocalDateTime.of(2022,7,22,0,0,0));
+        edto.setEventIsRoom(true);
 
         reservationService.CreateEvent(edto, Long.valueOf(1), Long.valueOf(1));
     }

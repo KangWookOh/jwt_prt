@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
-import com.cranesch.cranewebbackend.entity.enums.Board_Type;
+import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,27 +14,31 @@ public class Board extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Board_id;
+    private Long boardId;
 
     @Column(nullable = false)
-    private String Board_title;
+    private String boardTitle;
 
     @Column(nullable = false, columnDefinition = "Text")
-    private String Board_contents;
+    private String boardContents;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private Board_Type Board_type;
+    private BoardType boardType;
 
-    @JoinColumn(name = "User_id", nullable = false)
+    @Column(nullable = false)
+    private Long boardView;
+
+    @JoinColumn(nullable = false)
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private User user_id;
+    private User userId;
 
     @Builder
-    public Board(User user_id, String Board_title, String Board_contents, Board_Type Board_type){
-        this.user_id = user_id;
-        this.Board_title = Board_title;
-        this.Board_contents = Board_contents;
-        this.Board_type = Board_type;
+    public Board(User userId, String boardTitle, String boardContents, BoardType boardType, Long boardView){
+        this.userId = userId;
+        this.boardTitle = boardTitle;
+        this.boardContents = boardContents;
+        this.boardType = boardType;
+        this.boardView = boardView;
     }
 }

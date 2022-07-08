@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class PerformSessionDto {
 
-    private Session PerformSession_session;
+    private Session session;
 
     private Music music;
 
@@ -17,7 +17,7 @@ public class PerformSessionDto {
 
     public PerformSession toEntity(){
         return PerformSession.builder()
-                .PerformSession_session(PerformSession_session)
+                .session(session)
                 .music(music)
                 .user(user)
                 .build();

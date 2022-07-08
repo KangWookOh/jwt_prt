@@ -1,6 +1,6 @@
 package com.cranesch.cranewebbackend.entity.enums;
 
-public enum Board_Type {
+public enum BoardType {
     NOTICE,
     FREE,
     ADMIN,

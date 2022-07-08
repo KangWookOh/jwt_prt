@@ -4,23 +4,21 @@ import com.cranesch.cranewebbackend.entity.Equipment;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class EquipmentDto {
 
-    private String Eq_name;
+    private String eqName;
 
-    private String Eq_birth;
+    private String eqBirth;
 
-    private Session Eq_Session;
+    private Session eqSession;
 
     public Equipment toEntity()
     {
         return Equipment.builder().
-                Eq_name(Eq_name).
-                Eq_birth(Eq_birth).
-                Eq_Session(Eq_Session).
+                eqName(eqName).
+                eqBirth(eqBirth).
+                eqSession(eqSession).
                 build();
     }
 

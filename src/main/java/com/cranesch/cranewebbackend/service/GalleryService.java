@@ -2,7 +2,6 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.GalleryDto;
 import com.cranesch.cranewebbackend.dto.PictureDto;
-import com.cranesch.cranewebbackend.dto.UserDto;
 import com.cranesch.cranewebbackend.dto.VideoDto;
 import com.cranesch.cranewebbackend.entity.Gallery;
 import com.cranesch.cranewebbackend.entity.Music;
@@ -26,43 +25,43 @@ public class GalleryService {
     private PictureRepository pictureRepository;
 
     @Transactional
-    public Long CreateGallery(GalleryDto galleryDto, Long user_id, Long music_id){
-        Optional<User> optionaluser = userRepository.findById(user_id);
-        if(!optionaluser.isPresent()){
+    public Long CreateGallery(GalleryDto galleryDto, Long userId, Long musicId){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(!optionalUser.isPresent()){
             throw new EntityExistsException("User is not exist");
         }
 
-        Optional<Music> optionalMusic = musicRepository.findById(music_id);
+        Optional<Music> optionalMusic = musicRepository.findById(musicId);
         if(!optionalMusic.isPresent()){
             throw new EntityExistsException("Music is not exist");
         }
 
         galleryDto.setMusic(optionalMusic.get());
-        galleryDto.setUser(optionaluser.get());
+        galleryDto.setUser(optionalUser.get());
 
-        return galleryRepository.save(galleryDto.toEntity()).getGallery_id();
+        return galleryRepository.save(galleryDto.toEntity()).getGalleryId();
     }
 
     @Transactional
-    public Long CreatePic(PictureDto pictureDto, Long gallery_id){
-        Optional<Gallery> optionalGallery = galleryRepository.findById(gallery_id);
+    public Long CreatePic(PictureDto pictureDto, Long galleryId){
+        Optional<Gallery> optionalGallery = galleryRepository.findById(galleryId);
         if(!optionalGallery.isPresent()){
             throw new EntityExistsException("Gallery is not exist");
         }
         pictureDto.setGallery(optionalGallery.get());
 
-        return pictureRepository.save(pictureDto.toEntity()).getPicture_id();
+        return pictureRepository.save(pictureDto.toEntity()).getPictureId();
     }
 
     @Transactional
-    public Long CreateVid(VideoDto videoDto, Long gallery_id){
-        Optional<Gallery> optionalGallery = galleryRepository.findById(gallery_id);
+    public Long CreateVid(VideoDto videoDto, Long galleryId){
+        Optional<Gallery> optionalGallery = galleryRepository.findById(galleryId);
         if(!optionalGallery.isPresent()){
             throw new EntityExistsException("Gallery is not exist");
         }
         videoDto.setGallery(optionalGallery.get());
 
-        return videoRepository.save(videoDto.toEntity()).getVideo_id();
+        return videoRepository.save(videoDto.toEntity()).getVideoId();
     }
 
 }

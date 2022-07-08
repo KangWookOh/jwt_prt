@@ -5,7 +5,6 @@ import com.cranesch.cranewebbackend.dto.PerformDto;
 import com.cranesch.cranewebbackend.dto.PerformSessionDto;
 import com.cranesch.cranewebbackend.entity.Music;
 import com.cranesch.cranewebbackend.entity.Perform;
-import com.cranesch.cranewebbackend.entity.PerformSession;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.MusicRepository;
 import com.cranesch.cranewebbackend.repository.PerformRepository;
@@ -29,34 +28,34 @@ public class PerformService {
 
     @Transactional
     public Long CreatePerform(PerformDto performDto){
-        return performRepository.save(performDto.toEntity()).getPerform_id();
+        return performRepository.save(performDto.toEntity()).getPerformId();
     }
 
     @Transactional
-    public Long CreateMusic(MusicDto musicDto, Long Perform_id)
+    public Long CreateMusic(MusicDto musicDto, Long performId)
     {
-        Optional<Perform> optionalPerform = performRepository.findById(Perform_id);
+        Optional<Perform> optionalPerform = performRepository.findById(performId);
         if(optionalPerform.isEmpty()){
             throw new EntityExistsException("Perform Not Exist");
         }
         musicDto.setPerform(optionalPerform.get());
-    return musicRepository.save(musicDto.toEntity()).getMusic_id();
+    return musicRepository.save(musicDto.toEntity()).getMusicId();
 
     }
     @Transactional
-    public Long CreatePerformSession(PerformSessionDto sessionDto, Long User_id, Long Music_id)
+    public Long CreatePerformSession(PerformSessionDto sessionDto, Long userId, Long musicId)
     {
-        Optional<User> optionalUser = userRepository.findById(User_id);
-        if(!optionalUser.isPresent()){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
             throw new EntityExistsException("User Not Found");
         }
-        Optional<Music> optionalMusic = musicRepository.findById(Music_id);
-        if(!optionalMusic.isPresent()){
+        Optional<Music> optionalMusic = musicRepository.findById(musicId);
+        if(optionalMusic.isEmpty()){
             throw new EntityExistsException("Music Not Found");
         }
         sessionDto.setUser(optionalUser.get());
         sessionDto.setMusic(optionalMusic.get());
 
-        return performSessionRepository.save(sessionDto.toEntity()).getPerformSession_id();
+        return performSessionRepository.save(sessionDto.toEntity()).getPerformSessionId();
     }
 }

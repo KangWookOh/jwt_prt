@@ -14,23 +14,23 @@ public class PerformSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long performSession_id;
+    private Long performSessionId;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private Session PerformSession_session;
+    private Session session;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "Music_id")
+    @JoinColumn
     private Music music;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_id")
+    @JoinColumn
     private User user;
 
     @Builder
-    public PerformSession(Session PerformSession_session, Music music, User user){
-        this.PerformSession_session = PerformSession_session;
+    public PerformSession(Session session, Music music, User user){
+        this.session = session;
         this.music = music;
         this.user = user;
     }

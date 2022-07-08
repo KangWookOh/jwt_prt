@@ -8,7 +8,6 @@ import lombok.Getter;
 @Getter
 @Data
 public class AccountDto {
-    private Long Id;
 
     private User user;
 

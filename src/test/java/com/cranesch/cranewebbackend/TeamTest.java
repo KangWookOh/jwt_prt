@@ -2,8 +2,8 @@ package com.cranesch.cranewebbackend;
 
 import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.TeamDto;
-import com.cranesch.cranewebbackend.entity.enums.Team_Role;
-import com.cranesch.cranewebbackend.entity.enums.Team_Type;
+import com.cranesch.cranewebbackend.entity.enums.TeamRole;
+import com.cranesch.cranewebbackend.entity.enums.TeamType;
 import com.cranesch.cranewebbackend.service.TeamService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +20,8 @@ public class TeamTest {
     @Test
     public void CreateTeam(){
         TeamDto teamDto = new TeamDto();
-        teamDto.setTeam_name("테스트 팀");
-        teamDto.setTeam_type(Team_Type.PERFORM);
+        teamDto.setTeamName("테스트 팀");
+        teamDto.setTeamType(TeamType.PERFORM);
 
         teamService.CreatTeam(teamDto);
     }
@@ -29,7 +29,7 @@ public class TeamTest {
     @Test
     public void MatchTeam(){
         MatchDto matchDto = new MatchDto();
-        matchDto.setMatch_role(Team_Role.Reader);
+        matchDto.setTeamRole(TeamRole.Reader);
 
         teamService.AddTeamMember(matchDto, Long.valueOf(1), Long.valueOf(3));
     }

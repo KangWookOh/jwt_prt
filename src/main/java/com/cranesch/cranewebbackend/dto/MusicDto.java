@@ -7,16 +7,16 @@ import lombok.Data;
 @Data
 public class MusicDto {
 
-    private String Music_name;
+    private String musicName;
 
-    private String Music_singer;
+    private String musicSinger;
 
     private Perform perform;
 
     public Music toEntity(){
         return Music.builder()
-                .Music_name(Music_name)
-                .Music_singer(Music_singer)
+                .musicName(musicName)
+                .musicSinger(musicSinger)
                 .perform(perform)
                 .build();
     }

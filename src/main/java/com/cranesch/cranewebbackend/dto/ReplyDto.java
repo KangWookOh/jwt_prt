@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ReplyDto {
 
-    private String Reply_comment;
+    private String replyComment;
 
     private User user;
 
@@ -16,7 +16,7 @@ public class ReplyDto {
 
     public Reply toEntity(){
         return Reply.builder()
-                .Reply_comment(Reply_comment)
+                .replyComment(replyComment)
                 .user(user)
                 .board(board)
                 .build();

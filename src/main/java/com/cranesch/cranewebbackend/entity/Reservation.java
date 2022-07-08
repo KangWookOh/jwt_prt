@@ -13,30 +13,30 @@ import java.time.LocalDateTime;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Rs_id;
+    private Long rsvId;
 
-    @JoinColumn(name = "User_id")
+    @JoinColumn
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private User User_id;
+    private User user;
 
     @Column(nullable = false)
-    private LocalDateTime Rs_date;
+    private LocalDateTime rsvDate;
 
-    private LocalDateTime Rs_start;
+    private LocalDateTime rsvStart;
 
-    private LocalDateTime Rs_finish;
+    private LocalDateTime rsvFinish;
 
-    @JoinColumn(name = "Team_id")
+    @JoinColumn
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Team Team_id;
+    private Team team;
 
     @Builder
-    private Reservation(User user_id, LocalDateTime Rs_date, LocalDateTime Rs_start, LocalDateTime Rs_finish, Team team_id)
+    private Reservation(User user, LocalDateTime rsvDate, LocalDateTime rsvStart, LocalDateTime rsvFinish, Team team)
     {
-        this.User_id = user_id;
-        this.Rs_date = Rs_date;
-        this.Rs_start = Rs_start;
-        this.Rs_finish = Rs_finish;
-        this.Team_id = team_id;
+        this.user = user;
+        this.rsvDate = rsvDate;
+        this.rsvStart = rsvStart;
+        this.rsvFinish = rsvFinish;
+        this.team = team;
     }
 }

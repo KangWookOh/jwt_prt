@@ -3,7 +3,9 @@ package com.cranesch.cranewebbackend.service;
 import com.cranesch.cranewebbackend.dto.BoardDto;
 import com.cranesch.cranewebbackend.dto.ReplyDto;
 import com.cranesch.cranewebbackend.entity.Board;
+import com.cranesch.cranewebbackend.entity.Reply;
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import com.cranesch.cranewebbackend.repository.BoardRepository;
 import com.cranesch.cranewebbackend.repository.ReplyRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,25 +31,69 @@ public class BoardService {
         if(!optionalUser.isPresent()){
             throw new EntityExistsException("User not exist.");
         }
-        dto.setUser_id(optionalUser.get());
+        dto.setUserId(optionalUser.get());
+        dto.setBoardView(Long.valueOf(0));
 
-    return boardRepository.save(dto.toEntity()).getBoard_id();
+    return boardRepository.save(dto.toEntity()).getBoardId();
     }
 
     @Transactional
-    public Long CreateReply(ReplyDto replyDto, Long user_id, Long board_id){
-        Optional<User> optionalUser = userRepository.findById(user_id);
+    public Long CreateReply(ReplyDto replyDto, Long userId, Long boardId){
+        Optional<User> optionalUser = userRepository.findById(userId);
         if(!optionalUser.isPresent()){
             throw new EntityExistsException("User is not exist");
         }
 
-        Optional<Board> optionalBoard = boardRepository.findById(board_id);
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
         if(!optionalBoard.isPresent()){
             throw new EntityExistsException("Board is not exist");
         }
 
         replyDto.setBoard(optionalBoard.get());
         replyDto.setUser(optionalUser.get());
-        return replyRepository.save(replyDto.toEntity()).getReply_id();
+        return replyRepository.save(replyDto.toEntity()).getReplyId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Board> ReadBoardByType(BoardType boardType){
+        List<Board> boardList = boardRepository.findByBoardType(boardType);
+        if(boardList.isEmpty()){
+            throw new EntityExistsException("Board type " + boardType + " is not exist");
+        }
+        return boardList;
+    }
+
+    //Entity를 return 해도 괜찮은 걸까요?
+    @Transactional(readOnly = true)
+    public Board ReadBoardById(Long boardId){
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        if(optionalBoard.isEmpty()){
+            throw new EntityExistsException("Board is not exist");
+        }
+
+        return optionalBoard.get();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reply> ReadReplyByBoardId(Long boardId){
+        List<Reply> replyList = replyRepository.findByBoardBoardId(boardId);
+        if(replyList.isEmpty()){
+            throw new EntityExistsException("Board id " + boardId + " has no reply");
+        }
+
+        return replyList;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Board> ReadBoardByUser(Long userId)
+    {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
+            new EntityExistsException("User not Exist");
+        }
+        List<Board> uBoardList = boardRepository.findByUserIdUserId(userId);
+
+        return uBoardList;
     }
 }

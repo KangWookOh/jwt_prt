@@ -1,7 +1,7 @@
 package com.cranesch.cranewebbackend.dto;
 
 import com.cranesch.cranewebbackend.entity.Perform;
-import com.cranesch.cranewebbackend.entity.enums.Perform_Type;
+import com.cranesch.cranewebbackend.entity.enums.PerformType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,20 +9,20 @@ import java.time.LocalDateTime;
 @Data
 public class PerformDto {
 
-    private String Perform_name;
+    private String performName;
 
-    private LocalDateTime Perform_date;
+    private LocalDateTime performDate;
 
-    private Perform_Type perform_type;
+    private PerformType performType;
 
-    private String Perform_place;
+    private String performPlace;
 
     public Perform toEntity(){
         return Perform.builder()
-                .Perform_name(Perform_name)
-                .Perform_place(Perform_place)
-                .Perform_date(Perform_date)
-                .perform_type(perform_type)
+                .performName(performName)
+                .performPlace(performPlace)
+                .performDate(performDate)
+                .performType(performType)
                 .build();
     }
 }

@@ -7,13 +7,13 @@ import lombok.Data;
 @Data
 public class VideoDto {
 
-    private String Video_url;
+    private String videoUrl;
 
     private Gallery gallery;
 
     public Video toEntity(){
         return Video.builder()
-                .Video_url(Video_url)
+                .videoUrl(videoUrl)
                 .gallery(gallery)
                 .build();
     }
