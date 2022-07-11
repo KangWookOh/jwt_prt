@@ -20,7 +20,7 @@ public class EqService {
 
     @Transactional
     public Long CreateEq(EquipmentDto dto){
-        return equipmentRepository.save(dto.toEntity()).getEqId();
+        return equipmentRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
@@ -30,7 +30,7 @@ public class EqService {
         if(!optionalEquipment.isPresent()){
             throw new EntityExistsException("Eq is not exist");
         }
-        dto.setEqId(optionalEquipment.get());
-        return eqRepairRepository.save(dto.toEntity()).getEqrId();
+        dto.setEquipment(optionalEquipment.get());
+        return eqRepairRepository.save(dto.toEntity()).getId();
     }
 }

@@ -10,6 +10,7 @@ import com.cranesch.cranewebbackend.repository.BoardRepository;
 import com.cranesch.cranewebbackend.repository.ReplyRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BoardService {
     private BoardRepository boardRepository;
     private ReplyRepository replyRepository;
@@ -31,10 +33,10 @@ public class BoardService {
         if(!optionalUser.isPresent()){
             throw new EntityExistsException("User not exist.");
         }
-        dto.setUserId(optionalUser.get());
+        dto.setUser(optionalUser.get());
         dto.setBoardView(Long.valueOf(0));
 
-    return boardRepository.save(dto.toEntity()).getBoardId();
+    return boardRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
@@ -51,7 +53,7 @@ public class BoardService {
 
         replyDto.setBoard(optionalBoard.get());
         replyDto.setUser(optionalUser.get());
-        return replyRepository.save(replyDto.toEntity()).getReplyId();
+        return replyRepository.save(replyDto.toEntity()).getId();
     }
 
     @Transactional(readOnly = true)
@@ -76,13 +78,14 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<Reply> ReadReplyByBoardId(Long boardId){
-        List<Reply> replyList = replyRepository.findByBoardBoardId(boardId);
+        List<Reply> replyList = replyRepository.findByBoardId(boardId);
         if(replyList.isEmpty()){
             throw new EntityExistsException("Board id " + boardId + " has no reply");
         }
 
         return replyList;
     }
+
 
 
     @Transactional(readOnly = true)
@@ -92,7 +95,7 @@ public class BoardService {
         if(optionalUser.isEmpty()){
             new EntityExistsException("User not Exist");
         }
-        List<Board> uBoardList = boardRepository.findByUserIdUserId(userId);
+        List<Board> uBoardList = boardRepository.findByUserId(userId);
 
         return uBoardList;
     }

@@ -26,7 +26,7 @@ public class ScheduleService {
         }
         dto.setUser(optionalUser.get());
 
-        return timescheduleRepository.save(dto.toEntity()).getTimeId();
+        return timescheduleRepository.save(dto.toEntity()).getId();
     }
 
 }

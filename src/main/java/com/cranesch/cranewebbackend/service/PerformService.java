@@ -28,7 +28,7 @@ public class PerformService {
 
     @Transactional
     public Long CreatePerform(PerformDto performDto){
-        return performRepository.save(performDto.toEntity()).getPerformId();
+        return performRepository.save(performDto.toEntity()).getId();
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class PerformService {
             throw new EntityExistsException("Perform Not Exist");
         }
         musicDto.setPerform(optionalPerform.get());
-    return musicRepository.save(musicDto.toEntity()).getMusicId();
+    return musicRepository.save(musicDto.toEntity()).getId();
 
     }
     @Transactional
@@ -56,6 +56,6 @@ public class PerformService {
         sessionDto.setUser(optionalUser.get());
         sessionDto.setMusic(optionalMusic.get());
 
-        return performSessionRepository.save(sessionDto.toEntity()).getPerformSessionId();
+        return performSessionRepository.save(sessionDto.toEntity()).getId();
     }
 }

@@ -14,7 +14,7 @@ public class Board extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardId;
+    private Long id;
 
     @Column(nullable = false)
     private String boardTitle;
@@ -29,13 +29,13 @@ public class Board extends BaseTimeEntity{
     @Column(nullable = false)
     private Long boardView;
 
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name ="user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private User userId;
+    private User user;
 
     @Builder
-    public Board(User userId, String boardTitle, String boardContents, BoardType boardType, Long boardView){
-        this.userId = userId;
+    public Board(User user, String boardTitle, String boardContents, BoardType boardType, Long boardView){
+        this.user = user;
         this.boardTitle = boardTitle;
         this.boardContents = boardContents;
         this.boardType = boardType;

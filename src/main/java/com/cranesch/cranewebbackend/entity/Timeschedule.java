@@ -14,7 +14,7 @@ public class Timeschedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long timeId;
+    private Long id;
 
     @Column(nullable = false)
     private String timeSub;
@@ -25,8 +25,8 @@ public class Timeschedule {
     @Column(nullable = false)
     private LocalDateTime timeEnd;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn
     private User user;
 
     @Builder

@@ -23,7 +23,7 @@ public class TeamService {
 
     @Transactional
     public Long CreatTeam(TeamDto teamDto){
-        return teamRepository.save(teamDto.toEntity()).getTeamId();
+        return teamRepository.save(teamDto.toEntity()).getId();
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class TeamService {
 
         matchDto.setTeam(optionalTeam.get());
         matchDto.setUser(optionalUser.get());
-        return matchRepository.save(matchDto.toEntity()).getMatchId();
+        return matchRepository.save(matchDto.toEntity()).getId();
     }
 
 

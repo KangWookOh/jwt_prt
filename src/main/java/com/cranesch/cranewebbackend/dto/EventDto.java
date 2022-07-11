@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Data
 public class EventDto {
 
-    private User userId;
+    private User user;
 
-    private Team teamId;
+    private Team team;
 
     private LocalDateTime eventStartTime;
     private LocalDateTime eventEndTime;
@@ -26,8 +26,8 @@ public class EventDto {
     public Event toEntity()
     {
         return Event.builder().
-                userId(userId).
-                teamId(teamId).
+                user(user).
+                team(team).
                 eventStartTime(eventStartTime).
                 eventEndTime(eventEndTime).
                 eventTitle(eventTitle).

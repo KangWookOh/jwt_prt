@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eventId;
+    private Long id;
 
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @ManyToOne
-    private User userId;
+    private User user;
 
-    @JoinColumn(name = "teamId")
+    @JoinColumn(name = "team_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Team teamId;
+    private Team team;
 
     private LocalDateTime eventStartTime;
     private LocalDateTime eventEndTime;
@@ -33,11 +33,11 @@ public class Event {
     private boolean eventIsRoom;
 
     @Builder
-    private Event(User userId, Team teamId, LocalDateTime eventStartTime, LocalDateTime eventEndTime,
+    private Event(User user, Team team, LocalDateTime eventStartTime, LocalDateTime eventEndTime,
                   String eventTitle, String eventContent, boolean eventIsRoom)
     {
-        this.userId = userId;
-        this.teamId = teamId;
+        this.user = user;
+        this.team = team;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.eventTitle = eventTitle;

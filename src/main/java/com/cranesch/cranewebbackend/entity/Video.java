@@ -14,13 +14,13 @@ public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long VideoId;
+    private Long id;
 
     @Column(nullable = false)
     private String videoUrl;
 
+    @JoinColumn(name = "gallery_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "galleryId")
     private Gallery gallery;
 
     @Builder

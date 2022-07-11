@@ -12,13 +12,13 @@ public class ReservationDto {
 
     private User user;
 
+    private Team team;
+
     private LocalDateTime rsvDate;
 
     private LocalDateTime rsvStart;
 
     private LocalDateTime rsvFinish;
-
-    private Team team;
 
     public Reservation toEntity()
     {

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByBoardType(BoardType boardType);
-    List<Board> findByUserIdUserId(Long userId);
+    List<Board> findByUserId(Long userId);
 }

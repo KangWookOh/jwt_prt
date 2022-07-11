@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rsvId;
+    private Long id;
 
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 
@@ -26,7 +26,7 @@ public class Reservation {
 
     private LocalDateTime rsvFinish;
 
-    @JoinColumn
+    @JoinColumn(name = "team_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Team team;
 

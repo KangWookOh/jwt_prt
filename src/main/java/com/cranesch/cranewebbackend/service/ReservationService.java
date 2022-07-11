@@ -32,7 +32,7 @@ public class ReservationService {
         }
         dto.setTeam(optionalTeam.get());
 
-        return reservationRepository.save(dto.toEntity()).getRsvId();
+        return reservationRepository.save(dto.toEntity()).getId();
     }
 
 
@@ -44,7 +44,7 @@ public class ReservationService {
         }
         dto.setUser(optionalUser.get());
 
-        return reservationRepository.save(dto.toEntity()).getRsvId();
+        return reservationRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
@@ -61,8 +61,8 @@ public class ReservationService {
             throw new EntityExistsException("Team not found");
         }
 
-        dto.setUserId(optionalUser.get());
-        dto.setTeamId(optionalTeam.get());
-        return eventRepository.save(dto.toEntity()).getEventId();
+        dto.setUser(optionalUser.get());
+        dto.setTeam(optionalTeam.get());
+        return eventRepository.save(dto.toEntity()).getId();
     }
 }

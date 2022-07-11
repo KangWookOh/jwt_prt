@@ -17,7 +17,7 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long teamId;
+    private Long id;
 
     private TeamType teamType;
 

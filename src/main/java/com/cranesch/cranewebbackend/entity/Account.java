@@ -13,9 +13,9 @@ import javax.persistence.*;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
-    @JoinColumn(name ="userId")
+    @JoinColumn(name ="user_id")
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 
@@ -32,7 +32,7 @@ public class Account {
     @Builder
     private Account(User user, String Email, String Password, boolean Echeck)
     {
-        this.user =user;
+        this.user = user;
         this.Email = Email;
         this.Password = Password;
         this. Echeck = Echeck;

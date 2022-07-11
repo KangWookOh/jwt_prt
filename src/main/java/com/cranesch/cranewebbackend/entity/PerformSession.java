@@ -14,18 +14,18 @@ public class PerformSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long performSessionId;
+    private Long id;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Session session;
 
+    @JoinColumn(name = "music_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn
     private Music music;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn
     private User user;
 
     @Builder

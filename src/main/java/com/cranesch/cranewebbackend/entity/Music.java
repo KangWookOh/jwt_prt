@@ -13,7 +13,7 @@ public class Music {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long musicId;
+    private Long id;
 
     @Column(nullable = false)
     private String musicName;
@@ -21,8 +21,8 @@ public class Music {
     @Column(nullable = true)
     private String musicSinger;
 
+    @JoinColumn(name = "perform_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn
     private Perform perform;
 
     @Builder

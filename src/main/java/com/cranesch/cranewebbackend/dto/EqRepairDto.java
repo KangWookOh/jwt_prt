@@ -13,7 +13,7 @@ public class EqRepairDto {
 
     private String eqrMemo;
 
-    private Equipment eqId;
+    private Equipment equipment;
 
     public EqRepair toEntity()
     {
@@ -21,7 +21,7 @@ public class EqRepairDto {
                 eqrDate(eqrDate).
                 eqrPrice(eqrPrice).
                 eqrMemo(eqrMemo).
-                eqId(eqId).
+                equipment(equipment).
                 build();
     }
 }

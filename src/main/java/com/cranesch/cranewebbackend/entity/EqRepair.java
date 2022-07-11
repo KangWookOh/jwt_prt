@@ -12,24 +12,24 @@ import javax.persistence.*;
 public class EqRepair {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eqrId;
+    private Long id;
 
     private String eqrDate;
 
     private String eqrPrice;
 
-    private String eqRMemo;
+    private String eqrMemo;
 
-    @JoinColumn(name = "eqId")
+    @JoinColumn(name = "equipment_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Equipment eqId;
+    private Equipment equipment;
 
     @Builder
-    private EqRepair(String eqrDate, String eqrPrice, String eqrMemo, Equipment eqId)
+    private EqRepair(String eqrDate, String eqrPrice, String eqrMemo, Equipment equipment)
     {
         this.eqrDate = eqrDate;
         this.eqrPrice = eqrPrice;
-        this.eqRMemo = eqrMemo;
-        this.eqId = eqId;
+        this.eqrMemo = eqrMemo;
+        this.equipment = equipment;
     }
-}
+}//여긴 왜 자꾸 빨간줄그어지나요 암것도 없는데 저만 그어지나요

@@ -39,7 +39,7 @@ public class GalleryService {
         galleryDto.setMusic(optionalMusic.get());
         galleryDto.setUser(optionalUser.get());
 
-        return galleryRepository.save(galleryDto.toEntity()).getGalleryId();
+        return galleryRepository.save(galleryDto.toEntity()).getId();
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class GalleryService {
         }
         pictureDto.setGallery(optionalGallery.get());
 
-        return pictureRepository.save(pictureDto.toEntity()).getPictureId();
+        return pictureRepository.save(pictureDto.toEntity()).getId();
     }
 
     @Transactional
@@ -61,7 +61,7 @@ public class GalleryService {
         }
         videoDto.setGallery(optionalGallery.get());
 
-        return videoRepository.save(videoDto.toEntity()).getVideoId();
+        return videoRepository.save(videoDto.toEntity()).getId();
     }
 
 }

@@ -14,7 +14,7 @@ public class BoardDto {
 
     private BoardType boardType;
 
-    private User userId;
+    private User user;
 
     private Long boardView;
 
@@ -24,7 +24,7 @@ public class BoardDto {
                 .boardContents(boardContents)
                 .boardType(boardType)
                 .boardView(boardView)
-                .userId(userId)
+                .user(user)
                 .build();
     }
 }

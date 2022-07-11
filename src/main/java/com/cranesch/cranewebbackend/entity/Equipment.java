@@ -13,13 +13,13 @@ import javax.persistence.*;
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eqId;
+    private Long id;
 
     private String eqName;
 
     private String eqBirth;
 
-    @Enumerated(value = EnumType.STRING) //
+    @Enumerated(value = EnumType.STRING)
     private Session eqSession;
 
     @Builder

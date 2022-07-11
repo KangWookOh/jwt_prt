@@ -14,7 +14,7 @@ public class Gallery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long galleryId;
+    private Long id;
 
     @Column(nullable = false)
     private String galleryTitle;
@@ -26,9 +26,11 @@ public class Gallery {
     @Enumerated(value = EnumType.STRING)
     private GalleryType galleryType;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     User user;
 
+    @JoinColumn(name = "music_id")
     @OneToOne
     Music music;
 

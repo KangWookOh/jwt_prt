@@ -13,14 +13,16 @@ public class Reply extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long replyId;
+    private Long id;
 
     @Column(nullable = false, columnDefinition = "Text")
     private String replyComment;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     User user;
 
+    @JoinColumn(name = "board_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     Board board;
 

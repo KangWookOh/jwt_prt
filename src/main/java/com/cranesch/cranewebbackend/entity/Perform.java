@@ -15,7 +15,7 @@ public class Perform {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long performId;
+    private Long id;
 
     private String performName;
 

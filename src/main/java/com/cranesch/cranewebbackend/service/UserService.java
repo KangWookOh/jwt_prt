@@ -20,6 +20,6 @@ public class UserService {
     public Long SignUp(UserDto Udto, AccountDto Adto){
         //Long user_id = userRepository.save(Udto.toEntity()).getUser_id();
         Adto.setUser(Udto.toEntity());
-        return accountRepository.save(Adto.toEntity()).getID();
+        return accountRepository.save(Adto.toEntity()).getId();
     }
 }

@@ -14,16 +14,16 @@ import javax.persistence.*;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long matchId;
+    private Long id;
 
     @Column(nullable = false)
     private TeamRole matchRole;
 
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
 
-    @JoinColumn
+    @JoinColumn(name = "team_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Team team;
 
