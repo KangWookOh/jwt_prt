@@ -9,12 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @Data
-@JsonIgnoreProperties(value={"Email","Password"})
 public class UserDto {
-
-    private String Email;
-
-    private String Password;
 
     private Long userId;
 
@@ -48,10 +43,8 @@ public class UserDto {
 //                .build();
 //    }
     @Builder
-    public UserDto(String userName, String userBirth,String userStdId,String userDept,Integer userTh,String userPhoneNum,Session session,UserRole userRole,String eamil,String password)
+    public UserDto(String userName, String userBirth,String userStdId,String userDept,Integer userTh,String userPhoneNum,Session session,UserRole userRole)
     {
-        this.Email=eamil;
-        this.Password=password;
         this.userName=userName;
         this.userBirth=userBirth;
         this.userStdId=userStdId;

@@ -48,19 +48,19 @@ public class UserServiceTest {
 //                    .email("######@###.com")
 //                    .password("a;lsdkfjafl;k")
 //                    .build();
-           UserDto userDto = UserDto.builder()
+           SignupDto signupDto = SignupDto.builder()
                     .userName("username")
                     .userBirth("20000000")
                     .userDept("학과")
                     .userRole(UserRole.ADMIN)
                     .userStdId("20000000")
                     .userTh(40)
-                    .eamil("hyeseong@sch.ac.kr")
+                    .email("hyeseong@sch.ac.kr")
                     .userPhoneNum("01000000000")
                     .password("pw")
                     .session(Session.BASS)
                     .build();
-            userService.SignUp(userDto);
+            userService.SignUp(signupDto);
 //        }
     }
 

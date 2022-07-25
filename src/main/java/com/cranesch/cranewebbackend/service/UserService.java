@@ -27,30 +27,28 @@ public class UserService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public User SignUp(UserDto userDto)
+    public Long SignUp(SignupDto signupDto)
     {
         User user = User.builder()
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .userName(userDto.getUserName())
-                .userBirth(userDto.getUserBirth())
-                .userStdId(userDto.getUserStdId())
-                .session(userDto.getSession())
-                .userDept(userDto.getUserDept())
-                .userRole(userDto.getUserRole())
-                .userTh(userDto.getUserTh())
-                .userPhoneNum(userDto.getUserPhoneNum())
+                .userName(signupDto.getUserName())
+                .userBirth(signupDto.getUserBirth())
+                .userStdId(signupDto.getUserStdId())
+                .session(signupDto.getSession())
+                .userDept(signupDto.getUserDept())
+                .userRole(signupDto.getUserRole())
+                .userTh(signupDto.getUserTh())
+                .userPhoneNum(signupDto.getUserPhoneNum())
                 .build();
 
-//        Account account = Account.builder()
-//                .Email(signupDto.getUserEmail())
-//                .Password(signupDto.getUserPassword())
-//                .user(user)
-//                .build();
-        return userRepository.save(user);
+        Account account = Account.builder()
+                .Email(signupDto.getUserEmail())
+                .Password(signupDto.getUserPassword())
+                .user(user)
+                .build();
+        return accountRepository.save(account).getId();
     }
 
-    public List<UserDto> getAll()
+    public List<UserDto> getAllUser()
     {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtoList = new ArrayList<>();
@@ -65,8 +63,6 @@ public class UserService {
                     .userBirth(u.getUserBirth())
                     .session(u.getSession())
                     .userBirth(u.getUserBirth())
-                    .eamil(u.getEmail())
-                    .password(u.getPassword())
                     .build();
             userDtoList.add(userDto);
         }

@@ -19,15 +19,15 @@ import java.util.List;
 @RequestMapping("/api")
 public class testController {
     private final UserService userService;
-//    @PostMapping("/signup")
-//    public ResponseEntity<Long> SaveUser(@RequestBody SignupDto signupDto)
-//    {
-//        return ResponseEntity.ok(userService.SignUp(signupDto));
-//    }
+    @PostMapping("/signup")
+    public ResponseEntity<Long> SaveUser(@RequestBody SignupDto signupDto)
+    {
+        return ResponseEntity.ok(userService.SignUp(signupDto));
+    }
 
     @GetMapping("/user")
     private ResponseEntity Userlist(){
-        return ResponseEntity.ok(userService.getAll());
+        return ResponseEntity.ok(userService.getAllUser());
 
     }
 
