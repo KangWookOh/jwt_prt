@@ -3,9 +3,12 @@ package com.cranesch.cranewebbackend.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -20,10 +23,11 @@ public class Reservation {
     private User user;
 
     @Column(nullable = false)
-    private LocalDateTime rsvDate;
-
-    private LocalDateTime rsvStart;
-
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate rsvDate;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalDateTime rsvStart; // LocalTime쓰면 오류남
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalDateTime rsvFinish;
 
     @JoinColumn(name = "team_id")
@@ -31,7 +35,7 @@ public class Reservation {
     private Team team;
 
     @Builder
-    private Reservation(User user, LocalDateTime rsvDate, LocalDateTime rsvStart, LocalDateTime rsvFinish, Team team)
+    private Reservation(User user, LocalDate rsvDate, LocalDateTime rsvStart, LocalDateTime rsvFinish, Team team)
     {
         this.user = user;
         this.rsvDate = rsvDate;

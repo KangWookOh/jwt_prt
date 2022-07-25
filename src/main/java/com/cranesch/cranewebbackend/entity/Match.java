@@ -16,6 +16,7 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private TeamRole matchRole;
 

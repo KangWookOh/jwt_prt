@@ -1,12 +1,20 @@
 package com.cranesch.cranewebbackend.dto;
 
+
+
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 import com.cranesch.cranewebbackend.entity.enums.UserRole;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 @Data
+@JsonIgnoreProperties(value={"Email","Password"})
 public class UserDto {
+
+    private String Email;
+
+    private String Password;
 
     private Long userId;
 
@@ -22,20 +30,37 @@ public class UserDto {
 
     private UserRole userRole;
 
-    private int userTh;
+    private Integer userTh;
 
     private String userPhoneNum;
 
-    public User toEntity(){
-        return User.builder()
-                .userName(userName)
-                .userBirth(userBirth)
-                .userStdId(userStdId)
-                .session(session)
-                .userDept(userDept)
-                .userRole(userRole)
-                .userTh(userTh)
-                .userPhoneNum(userPhoneNum)
-                .build();
+
+//    public User toEntity() {
+//        return User.builder()
+//                .userName(userName)
+//                .userBirth(userBirth)
+//                .userStdId(userStdId)
+//                .session(session)
+//                .userDept(userDept)
+//                .userRole(userRole)
+//                .userTh(userTh)
+//                .userPhoneNum(userPhoneNum)
+//                .build();
+//    }
+    @Builder
+    public UserDto(String userName, String userBirth,String userStdId,String userDept,Integer userTh,String userPhoneNum,Session session,UserRole userRole,String eamil,String password)
+    {
+        this.Email=eamil;
+        this.Password=password;
+        this.userName=userName;
+        this.userBirth=userBirth;
+        this.userStdId=userStdId;
+        this.userDept=userDept;
+        this.userTh=userTh;
+        this.userPhoneNum=userPhoneNum;
+        this.session = session;
+        this.userRole = userRole;
     }
+
+
 }

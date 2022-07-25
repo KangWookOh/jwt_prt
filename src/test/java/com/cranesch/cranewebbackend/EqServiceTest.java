@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class EqServiceTest {
@@ -24,10 +27,11 @@ public class EqServiceTest {
 
     @Test
     public void eqCreateTest(){
-        EquipmentDto Edto = new EquipmentDto();
-        Edto.setEqName("fendar guitar");
-        Edto.setEqBirth("2018-00-00");
-        Edto.setEqSession(Session.GUITAR);
+        EquipmentDto Edto = EquipmentDto.builder()
+                .eqBirth("2018-00-00")
+                .eqSession(Session.BASS)
+                .eqName("Squire Bass")
+                .build();
 
         eqService.CreateEq(Edto);
     }
@@ -35,12 +39,36 @@ public class EqServiceTest {
     @Test
     public void EqRCreateTest()
     {
-        EqRepairDto eqrDto = new EqRepairDto();
-        eqrDto.setEqrDate("2020.12.3");
-        eqrDto.setEqrMemo("Body crack");
-        eqrDto.setEqrPrice("5$");
+        EqRepairDto eqrDto = EqRepairDto.builder()
+                .eqrDate(LocalDate.of(2022, 12,25))
+                .eqrMemo("Critical Body Crack")
+                .eqrPrice("5.$")
+                .build();
 
-        eqService.CreateEqR(eqrDto, Long.valueOf(1));
+        eqService.CreateEqR(eqrDto, 1L);
     }
 
+    @Test
+    public void ReadEqTest()
+    {
+        List<EquipmentDto> equipmentDtoList = eqService.ReadEq();
+        for(EquipmentDto e : equipmentDtoList)
+        {
+            System.out.println("Eqip Name: " + e.getEqName() + " / Equip Birth : " + e.getEqBirth()
+            + "Eqip Session" + e.getEqSession());
+        }
+    }
+
+    @Test
+    public void ReadEqRepairTest() {
+        Long eqId = 1L;
+        List<EqRepairDto> eqRepairDtoList = eqService.ReadEqrByEq(eqId);
+
+        System.out.println("Eqipment Id " + eqId +" Repair Chart");
+        for (EqRepairDto e : eqRepairDtoList)
+        {
+            System.out.println("Repair Date :" + e.getEqrDate() + " / Memo : "+ e.getEqrMemo()
+                    + " / Price : " + e.getEqrPrice());
+        }
+    }
 }

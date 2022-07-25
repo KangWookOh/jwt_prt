@@ -1,8 +1,13 @@
 package com.cranesch.cranewebbackend.repository;
 
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.enums.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.List;
 
+public interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findBySession (Session session);
+    List<User> findByUserTh(int th);
+    List<User> findByUserName(String name);
 }

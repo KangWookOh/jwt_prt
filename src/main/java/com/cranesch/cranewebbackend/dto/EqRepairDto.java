@@ -2,12 +2,15 @@ package com.cranesch.cranewebbackend.dto;
 
 import com.cranesch.cranewebbackend.entity.EqRepair;
 import com.cranesch.cranewebbackend.entity.Equipment;
+import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class EqRepairDto {
     
-    private String eqrDate;
+    private LocalDate eqrDate;
 
     private String eqrPrice;
 
@@ -15,13 +18,21 @@ public class EqRepairDto {
 
     private Equipment equipment;
 
-    public EqRepair toEntity()
+//    public EqRepair toEntity()
+//    {
+//        return EqRepair.builder().
+//                eqrDate(eqrDate).
+//                eqrPrice(eqrPrice).
+//                eqrMemo(eqrMemo).
+//                equipment(equipment).
+//                build();
+//    }
+    @Builder
+    public EqRepairDto(LocalDate eqrDate,String eqrPrice,String eqrMemo ,Equipment equipment)
     {
-        return EqRepair.builder().
-                eqrDate(eqrDate).
-                eqrPrice(eqrPrice).
-                eqrMemo(eqrMemo).
-                equipment(equipment).
-                build();
+        this.eqrDate=eqrDate;
+        this.eqrPrice=eqrPrice;
+        this.eqrMemo=eqrMemo;
+        this.equipment=equipment;
     }
 }

@@ -5,30 +5,43 @@ import com.cranesch.cranewebbackend.dto.PerformDto;
 import com.cranesch.cranewebbackend.dto.PerformSessionDto;
 import com.cranesch.cranewebbackend.entity.Music;
 import com.cranesch.cranewebbackend.entity.Perform;
+import com.cranesch.cranewebbackend.entity.PerformSession;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.MusicRepository;
 import com.cranesch.cranewebbackend.repository.PerformRepository;
 import com.cranesch.cranewebbackend.repository.PerformSessionRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class PerformService {
 
-    private PerformRepository performRepository;
-    private PerformSessionRepository performSessionRepository;
-    private MusicRepository musicRepository;
-    private UserRepository userRepository;
+    private final PerformRepository performRepository;
+    private final PerformSessionRepository performSessionRepository;
+    private final MusicRepository musicRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public Long CreatePerform(PerformDto performDto){
-        return performRepository.save(performDto.toEntity()).getId();
+        Perform perform = Perform.builder()
+                .performName(performDto.getPerformName())
+                .performType(performDto.getPerformType())
+                .performDate(performDto.getPerformDate())
+                .performPlace(performDto.getPerformPlace())
+                .build();
+        return performRepository.save(perform).getId();
     }
 
     @Transactional
@@ -36,10 +49,15 @@ public class PerformService {
     {
         Optional<Perform> optionalPerform = performRepository.findById(performId);
         if(optionalPerform.isEmpty()){
-            throw new EntityExistsException("Perform Not Exist");
+            log.info("NoPerform");
         }
-        musicDto.setPerform(optionalPerform.get());
-    return musicRepository.save(musicDto.toEntity()).getId();
+       // musicDto.setPerform(optionalPerform.get());
+        Music music = Music.builder()
+                .musicName(musicDto.getMusicName())
+                .musicSinger(musicDto.getMusicSinger())
+                .perform(optionalPerform.get())
+                .build();
+    return musicRepository.save(music).getId();
 
     }
     @Transactional
@@ -53,9 +71,122 @@ public class PerformService {
         if(optionalMusic.isEmpty()){
             throw new EntityExistsException("Music Not Found");
         }
-        sessionDto.setUser(optionalUser.get());
-        sessionDto.setMusic(optionalMusic.get());
+        /*sessionDto.setUser(optionalUser.get());
+        sessionDto.setMusic(optionalMusic.get());*/
+        PerformSession performSession = PerformSession.builder()
+                .session(sessionDto.getSession())
+                .user(optionalUser.get())
+                .music(optionalMusic.get())
+                .build();
 
-        return performSessionRepository.save(sessionDto.toEntity()).getId();
+        return performSessionRepository.save(performSession).getId();
     }
+
+    @Transactional(readOnly = true)
+    public List<PerformDto> ReadPerform()
+    {
+        List<Perform> performList = performRepository.findAll();
+        List<PerformDto> performDtoList = new ArrayList<>();
+        if(performList.isEmpty())
+        {
+            throw new EntityExistsException("Perform not exist");
+        }
+        for(Perform p : performList)
+        {
+            PerformDto dto = PerformDto.builder()
+                    .performName(p.getPerformName())
+                    .performDate(p.getPerformDate())
+                    .performPlace(p.getPerformPlace())
+                    .performType(p.getPerformType())
+                    .build();
+            performDtoList.add(dto);
+        }
+        return performDtoList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<MusicDto> ReadMusicListByPerform(Long performId){
+        Optional<Perform> optionalPerform = performRepository.findById(performId);
+        if(optionalPerform.isEmpty()){
+            throw new EntityExistsException("No perform");
+        }
+        List<Music> musicList = musicRepository.findByPerformId(performId);
+        List<MusicDto> musicDtoList = new ArrayList<>();
+
+        for(Music m : musicList)
+        {
+            MusicDto dto = MusicDto.builder()
+                    .musicName(m.getMusicName())
+                    .musicSinger(m.getMusicSinger())
+                    .build();
+            musicDtoList.add(dto);
+        }
+
+        return musicDtoList;
+    }
+
+   /* @Transactional(readOnly = true)
+    public List<PerformSession> ReadSessionByMusic(Long musicId){
+        Optional<Music> optionalMusic = musicRepository.findById(musicId);
+        if(optionalMusic.isEmpty()){
+            new EntityExistsException("Music not exist");
+        }
+        List<PerformSession> pSessionList = performSessionRepository.findByMusicId(musicId);
+
+        return pSessionList;
+    }*/
+   @Transactional(readOnly = true)
+   public List<PerformSessionDto> ReadSessionByMusic(Long musicId){
+       Optional<Music> optionalMusic = musicRepository.findById(musicId);
+       if(optionalMusic.isEmpty()){
+           new EntityExistsException("Music not exist");
+       }
+       List<PerformSession> pSessionList = performSessionRepository.findByMusicId(musicId);
+       List<PerformSessionDto> performSessionList = new ArrayList<>();
+
+       for(PerformSession s : pSessionList)
+       {
+           Optional<User> optionalUser = userRepository.findById(s.getUser().getId());
+           PerformSessionDto psDto = PerformSessionDto.builder()
+                   .session(s.getSession())
+                   .music(s.getMusic())
+                   .user(optionalUser.get())
+                   .build();
+           performSessionList.add(psDto);
+       }
+       return performSessionList;
+   }
+
+    @Transactional(readOnly = true)
+    public List<MusicDto> ReadMusicByUser(Long userId){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()) {
+            throw new EntityExistsException("No user exist");
+        }
+
+        List<Music> musicIdList = new ArrayList<>();
+        List<PerformSession> performSessionList = performSessionRepository.findByUserId(userId);
+
+        for(PerformSession ps : performSessionList){
+            musicIdList.add(ps.getMusic());
+        }
+
+        List<MusicDto> musicDtoList = new ArrayList<>();
+
+        for(Music m : musicIdList){
+            Optional<Music> optionalMusic = musicRepository.findById(m.getId());
+            if(optionalMusic.isEmpty()){
+                throw new EntityExistsException("no music");
+            }
+            MusicDto dto =MusicDto.builder()
+                    .musicName(m.getMusicName())
+                    .musicSinger(m.getMusicSinger())
+                    .perform(m.getPerform())
+                    .build();
+            musicDtoList.add(dto);
+        }
+
+        return musicDtoList;
+   }
+
 }

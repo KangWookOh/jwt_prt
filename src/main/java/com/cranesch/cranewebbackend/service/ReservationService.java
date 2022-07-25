@@ -2,6 +2,8 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.EventDto;
 import com.cranesch.cranewebbackend.dto.ReservationDto;
+import com.cranesch.cranewebbackend.entity.Event;
+import com.cranesch.cranewebbackend.entity.Reservation;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.EventRepository;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,9 +34,15 @@ public class ReservationService {
         if (optionalTeam.isEmpty()) {
             throw new EntityExistsException("Team not exist");
         }
-        dto.setTeam(optionalTeam.get());
+        Reservation reservation = Reservation.builder()
+                .rsvDate(dto.getRsvDate())
+                .rsvStart(dto.getRsvStart())
+                .rsvFinish(dto.getRsvFinish())
+                .team(optionalTeam.get())
+                .user(null)
+                .build();
 
-        return reservationRepository.save(dto.toEntity()).getId();
+        return reservationRepository.save(reservation).getId();
     }
 
 
@@ -42,27 +52,102 @@ public class ReservationService {
         if (optionalUser.isEmpty()) {
             throw new EntityExistsException("User not exist");
         }
-        dto.setUser(optionalUser.get());
+        Reservation reservation = Reservation.builder()
+                .rsvDate(dto.getRsvDate())
+                .rsvStart(dto.getRsvStart())
+                .rsvFinish(dto.getRsvFinish())
+                .team(null)
+                .user(optionalUser.get())
+                .build();
 
-        return reservationRepository.save(dto.toEntity()).getId();
+        return reservationRepository.save(reservation).getId();
     }
 
     @Transactional
-    public Long CreateEvent(EventDto dto, Long userId, Long teamId)
-    {
+    public Long CreateEvent(EventDto dto, Long userId, Long teamId) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        if(optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             throw new EntityExistsException("User not found.");
         }
 
         Optional<Team> optionalTeam = teamRepository.findById(teamId);
-        if(optionalTeam.isEmpty())
-        {
+        if (optionalTeam.isEmpty()) {
             throw new EntityExistsException("Team not found");
         }
 
-        dto.setUser(optionalUser.get());
-        dto.setTeam(optionalTeam.get());
-        return eventRepository.save(dto.toEntity()).getId();
+        Event event = Event.builder()
+                .user(optionalUser.get())
+                .team(optionalTeam.get())
+                .eventStartTime(dto.getEventStartTime())
+                .eventEndTime(dto.getEventEndTime())
+                .eventTitle(dto.getEventTitle())
+                .eventContent(dto.getEventContent())
+                .eventIsRoom(dto.isEventIsRoom())
+                .build();
+        return eventRepository.save(event).getId();
     }
+
+    @Transactional(readOnly = true)
+    public List<ReservationDto> ReadReservationByUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new EntityExistsException("User Not Exist");
+        }
+        List<Reservation> reservationList = reservationRepository.findByUserId(userId);
+        List<ReservationDto> reservationDtoList = new ArrayList<>();
+
+        for (Reservation r : reservationList) {
+            ReservationDto dto = ReservationDto.builder()
+                    .rsvDate(r.getRsvDate())
+                    .rsvStart(r.getRsvStart())
+                    .rsvFinish(r.getRsvFinish())
+                    .team(r.getTeam())
+                    .build();
+            reservationDtoList.add(dto);
+        }
+        return reservationDtoList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReservationDto> ReadReservationByTeam(Long teamId) {
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if (optionalTeam.isEmpty()) {
+            throw new EntityExistsException("Team Not Exist");
+        }
+        List<Reservation> reservationList = reservationRepository.findByTeamId(teamId);
+        List<ReservationDto> reservationDtoList = new ArrayList<>();
+
+        for (Reservation r : reservationList) {
+            ReservationDto dto = ReservationDto.builder()
+                    .rsvDate(r.getRsvDate())
+                    .rsvStart(r.getRsvStart())
+                    .rsvFinish(r.getRsvFinish())
+                    .build();
+            reservationDtoList.add(dto);
+        }
+        return reservationDtoList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<EventDto> ReadEventList() {
+        List<Event> eventList = eventRepository.findAll();
+        List<EventDto> eventDtoList = new ArrayList<>();
+
+        for(Event e : eventList){
+            EventDto dto = EventDto.builder()
+                    .eventTitle(e.getEventTitle())
+                    .eventContent(e.getEventContent())
+                    .eventStartTime(e.getEventStartTime())
+                    .eventEndTime(e.getEventEndTime())
+                    .eventIsRoom(e.isEventIsRoom())
+                    .team(e.getTeam())
+                    .user(e.getUser())
+                    .build();
+            eventDtoList.add(dto);
+        }
+        return eventDtoList;
+    }
+
+
+
 }

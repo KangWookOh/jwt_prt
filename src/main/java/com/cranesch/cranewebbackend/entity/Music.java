@@ -21,6 +21,9 @@ public class Music {
     @Column(nullable = true)
     private String musicSinger;
 
+    //private String perform_name;
+
+
     @JoinColumn(name = "perform_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Perform perform;

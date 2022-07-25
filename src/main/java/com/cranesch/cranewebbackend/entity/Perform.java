@@ -22,7 +22,7 @@ public class Perform {
     private LocalDateTime performDate;
 
     @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)//추후 create drop 후
     private PerformType performType;
 
     private String performPlace;

@@ -10,21 +10,23 @@ import com.cranesch.cranewebbackend.repository.BoardRepository;
 import com.cranesch.cranewebbackend.repository.ReplyRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class BoardService {
-    private BoardRepository boardRepository;
-    private ReplyRepository replyRepository;
-    private UserRepository userRepository;
+    private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public Long CreateBoard(BoardDto dto, Long User_id)
@@ -33,10 +35,15 @@ public class BoardService {
         if(!optionalUser.isPresent()){
             throw new EntityExistsException("User not exist.");
         }
-        dto.setUser(optionalUser.get());
-        dto.setBoardView(Long.valueOf(0));
+        Board board = Board.builder()
+                .boardTitle(dto.getBoardTitle())
+                .boardContents(dto.getBoardContents())
+                .boardType(dto.getBoardType())
+                .boardView(Long.valueOf(0))
+                .user(optionalUser.get())
+                .build();
 
-    return boardRepository.save(dto.toEntity()).getId();
+        return boardRepository.save(board).getId();
     }
 
     @Transactional
@@ -51,52 +58,110 @@ public class BoardService {
             throw new EntityExistsException("Board is not exist");
         }
 
-        replyDto.setBoard(optionalBoard.get());
-        replyDto.setUser(optionalUser.get());
-        return replyRepository.save(replyDto.toEntity()).getId();
+        Reply reply = Reply.builder()
+                .replyComment(replyDto.getReplyComment())
+                .user(optionalUser.get())
+                .board(optionalBoard.get())
+                .build();
+
+        return replyRepository.save(reply).getId();
     }
 
     @Transactional(readOnly = true)
-    public List<Board> ReadBoardByType(BoardType boardType){
+    public List<BoardDto> ReadBoardByType(BoardType boardType){
         List<Board> boardList = boardRepository.findByBoardType(boardType);
+        List<BoardDto> boardDtoList = new ArrayList<>();
         if(boardList.isEmpty()){
-            throw new EntityExistsException("Board type " + boardType + " is not exist");
+            log.info("NoBoard");
         }
-        return boardList;
+
+        for(Board b : boardList){
+            BoardDto dto = BoardDto.builder()
+                    .boardTitle(b.getBoardTitle())
+                    .boardContents(b.getBoardContents())
+                    .boardType(b.getBoardType())
+                    .user(b.getUser())
+                    .boardView(b.getBoardView())
+                    .build();
+
+            boardDtoList.add(dto);
+        }
+
+        return boardDtoList;
     }
 
-    //Entity를 return 해도 괜찮은 걸까요?
     @Transactional(readOnly = true)
-    public Board ReadBoardById(Long boardId){
+    public BoardDto ReadBoardById(Long boardId){
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         if(optionalBoard.isEmpty()){
             throw new EntityExistsException("Board is not exist");
         }
 
-        return optionalBoard.get();
+        Board board = optionalBoard.get();
+
+
+
+        BoardDto dto = BoardDto.builder()
+                .boardTitle(board.getBoardTitle())
+                .boardContents(board.getBoardContents())
+                .boardType(board.getBoardType())
+                .boardView(board.getBoardView())
+                .user(board.getUser())
+                .build();
+
+        return dto;
     }
 
     @Transactional(readOnly = true)
-    public List<Reply> ReadReplyByBoardId(Long boardId){
+    public List<ReplyDto> ReadReplyByBoardId(Long boardId){
         List<Reply> replyList = replyRepository.findByBoardId(boardId);
+        List<ReplyDto> replyDtoList = new ArrayList<>();
         if(replyList.isEmpty()){
             throw new EntityExistsException("Board id " + boardId + " has no reply");
         }
 
-        return replyList;
+        for(Reply r : replyList){
+            ReplyDto dto = ReplyDto.builder()
+                    .replyComment(r.getReplyComment())
+                    .user(r.getUser())
+                    .board(r.getBoard())
+                    .build();
+
+            replyDtoList.add(dto);
+        }
+
+        return replyDtoList;
     }
 
 
 
     @Transactional(readOnly = true)
-    public List<Board> ReadBoardByUser(Long userId)
+    public List<BoardDto> ReadBoardByUser(Long userId)
     {
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isEmpty()){
-            new EntityExistsException("User not Exist");
+            throw new EntityExistsException("User not Exist");
         }
         List<Board> uBoardList = boardRepository.findByUserId(userId);
+        List<BoardDto> boardDtoList = new ArrayList<>();
 
-        return uBoardList;
+        for(Board b : uBoardList){
+            BoardDto dto = BoardDto.builder()
+                    .boardTitle(b.getBoardTitle())
+                    .boardContents(b.getBoardContents())
+                    .boardType(b.getBoardType())
+                    .user(b.getUser())
+                    .boardView(b.getBoardView())
+                    .build();
+
+            boardDtoList.add(dto);
+        }
+
+        return boardDtoList;
     }
+//    @Transactional
+//    public Long updateView(long id)
+//    {
+//        return boardRepository.UpdateView(id);
+//    }
 }

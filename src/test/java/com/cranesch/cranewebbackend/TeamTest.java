@@ -2,6 +2,8 @@ package com.cranesch.cranewebbackend;
 
 import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.TeamDto;
+import com.cranesch.cranewebbackend.entity.Match;
+import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.entity.enums.TeamRole;
 import com.cranesch.cranewebbackend.entity.enums.TeamType;
 import com.cranesch.cranewebbackend.service.TeamService;
@@ -11,16 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+import java.util.Optional;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TeamTest {
     @Autowired
     private TeamService teamService;
-
+    //team type String check!
     @Test
     public void CreateTeam(){
-        TeamDto teamDto = new TeamDto();
-        teamDto.setTeamName("테스트 팀");
+        TeamDto teamDto = TeamDto.builder()
+                .teamName("축제 합주팀")
+                .build();
         teamDto.setTeamType(TeamType.PERFORM);
 
         teamService.CreatTeam(teamDto);
@@ -28,10 +34,32 @@ public class TeamTest {
 
     @Test
     public void MatchTeam(){
-        MatchDto matchDto = new MatchDto();
-        matchDto.setTeamRole(TeamRole.Reader);
+        MatchDto matchDto = MatchDto.builder()
+                .teamRole(TeamRole.Reader)
+                .build();
 
-        teamService.AddTeamMember(matchDto, Long.valueOf(1), Long.valueOf(3));
+        teamService.AddTeamMember(matchDto, 1L, 1L);
     }
 
+    @Test
+    public void ReadTeam() {
+        List<TeamDto> teamDtoList = teamService.ReadTeam();
+        for (TeamDto t : teamDtoList)
+        {
+            System.out.println("Team name : "+ t.getTeamName() + " / Team Type : "+ t.getTeamType());
+        }
+    }
+
+    @Test
+    public void ReadMemberByTeam()
+    {
+        Long teamId = 1L;
+        List<MatchDto> matchDtoList = teamService.ReadMemberByTeam(teamId);
+
+        for(MatchDto m: matchDtoList)
+        {
+            System.out.println("Session  : "+ m.getTeamRole() +" / Name : "+ m.getUser().getUserName());
+        }
+    }
+    // 됐었는데 안될지도 모름
 }

@@ -1,16 +1,17 @@
 package com.cranesch.cranewebbackend;
 
-import com.cranesch.cranewebbackend.dto.AccountDto;
+import com.cranesch.cranewebbackend.dto.SignupDto;
 import com.cranesch.cranewebbackend.dto.UserDto;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 import com.cranesch.cranewebbackend.entity.enums.UserRole;
-import com.cranesch.cranewebbackend.repository.UserRepository;
 import com.cranesch.cranewebbackend.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.cranesch.cranewebbackend.repository.UserRepository;
+import com.cranesch.cranewebbackend.repository.AccountRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -22,30 +23,46 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
+
+
     @Test
     public void test(){
-        for(int i =0; i < 30; i++) {
-            UserDto Udto = new UserDto();
-            Udto.setUserName("test_name");
-            Udto.setUserBirth("220704");
-            Udto.setUserTh(i);
-            Udto.setUserPhoneNum("010-0000-0000");
-            Udto.setUserDept("User_dept");
-            Udto.setUserRole(UserRole.ADMIN);
-            Udto.setUserStdId("20000000");
-            Udto.setSession(Session.BASS);
 
-            AccountDto Adto = new AccountDto();
-            Adto.setEmail("########@####.com");
-            Adto.setEcheck(true);
-            Adto.setPassword("########");
+//        for(int i =1; i <= 30; i++) {
 
-            userService.SignUp(Udto, Adto);
-        }
+//            UserDto Udto = UserDto.builder()
+//                    .userName("user" + i)
+//                    .session(Session.GUITAR)
+//                    .userBirth("000000")
+//                    .userDept("User_dept")
+//                    .userPhoneNum("000-0000-0000")
+//                    .userRole(UserRole.ADMIN)
+//                    .userStdId("00000000")
+//                    .userTh(0)
+//                    .build();
+//
+//            AccountDto Adto = AccountDto.builder()
+//                    .email("######@###.com")
+//                    .password("a;lsdkfjafl;k")
+//                    .build();
+           UserDto userDto = UserDto.builder()
+                    .userName("username")
+                    .userBirth("20000000")
+                    .userDept("학과")
+                    .userRole(UserRole.ADMIN)
+                    .userStdId("20000000")
+                    .userTh(40)
+                    .eamil("hyeseong@sch.ac.kr")
+                    .userPhoneNum("01000000000")
+                    .password("pw")
+                    .session(Session.BASS)
+                    .build();
+            userService.SignUp(userDto);
+//        }
     }
-
-
-
 
 
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ public class EqRepair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String eqrDate;
+    private LocalDate eqrDate;
 
     private String eqrPrice;
 
@@ -25,7 +26,7 @@ public class EqRepair {
     private Equipment equipment;
 
     @Builder
-    private EqRepair(String eqrDate, String eqrPrice, String eqrMemo, Equipment equipment)
+    private EqRepair(LocalDate eqrDate, String eqrPrice, String eqrMemo, Equipment equipment)
     {
         this.eqrDate = eqrDate;
         this.eqrPrice = eqrPrice;

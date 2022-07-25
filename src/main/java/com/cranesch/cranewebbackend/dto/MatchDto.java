@@ -4,6 +4,7 @@ import com.cranesch.cranewebbackend.entity.Match;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.entity.enums.TeamRole;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
@@ -16,12 +17,19 @@ public class MatchDto {
 
     private Team team;
 
-    public Match toEntity()
+//    public Match toEntity()
+//    {
+//        return Match.builder().
+//                teamRole(teamRole).
+//                user(user).
+//                team(team).
+//                build();
+//    }
+    @Builder
+    public MatchDto(User user,Team team,TeamRole teamRole)
     {
-        return Match.builder().
-                teamRole(teamRole).
-                user(user).
-                team(team).
-                build();
+        this.user=user;
+        this.team=team;
+        this.teamRole=teamRole;
     }
 }
