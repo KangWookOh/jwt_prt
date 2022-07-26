@@ -18,13 +18,13 @@ public class Picture {
     @Column(nullable = false)
     private String pictureUrl;
 
-    @JoinColumn(name = "gallery_id")
+    @JoinColumn(name = "board_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Gallery gallery;
+    private Board board;
 
     @Builder
-    public Picture(String pictureUrl, Gallery gallery){
+    public Picture(String pictureUrl, Board board){
         this.pictureUrl = pictureUrl;
-        this.gallery = gallery;
+        this.board = board;
     }
 }

@@ -19,13 +19,13 @@ public class Video {
     @Column(nullable = false)
     private String videoUrl;
 
-    @JoinColumn(name = "gallery_id")
+    @JoinColumn(name = "board_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Gallery gallery;
+    private Board board;
 
     @Builder
-    public Video(String videoUrl, Gallery gallery){
+    public Video(String videoUrl, Board board){
         this.videoUrl = videoUrl;
-        this.gallery = gallery;
+        this.board = board;
     }
 }

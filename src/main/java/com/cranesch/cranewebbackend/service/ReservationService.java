@@ -76,8 +76,6 @@ public class ReservationService {
         }
 
         Event event = Event.builder()
-                .user(optionalUser.get())
-                .team(optionalTeam.get())
                 .eventStartTime(dto.getEventStartTime())
                 .eventEndTime(dto.getEventEndTime())
                 .eventTitle(dto.getEventTitle())
@@ -140,8 +138,7 @@ public class ReservationService {
                     .eventStartTime(e.getEventStartTime())
                     .eventEndTime(e.getEventEndTime())
                     .eventIsRoom(e.isEventIsRoom())
-                    .team(e.getTeam())
-                    .user(e.getUser())
+
                     .build();
             eventDtoList.add(dto);
         }

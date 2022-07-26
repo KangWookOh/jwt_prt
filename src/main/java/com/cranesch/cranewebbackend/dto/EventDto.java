@@ -11,10 +11,6 @@ import java.time.LocalDateTime;
 @Data
 public class EventDto {
 
-    private User user;
-
-    private Team team;
-
     private LocalDateTime eventStartTime;
     private LocalDateTime eventEndTime;
 
@@ -38,9 +34,8 @@ public class EventDto {
 //    }
 
     @Builder
-    public EventDto(User user, Team team, LocalDateTime eventStartTime, LocalDateTime eventEndTime, String eventTitle, String eventContent, boolean eventIsRoom){
-        this.user = user;
-        this.team = team;
+    public EventDto(LocalDateTime eventStartTime, LocalDateTime eventEndTime, String eventTitle, String eventContent, boolean eventIsRoom){
+
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.eventTitle = eventTitle;

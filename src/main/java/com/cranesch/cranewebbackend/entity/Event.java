@@ -15,13 +15,6 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "user_id")
-    @ManyToOne
-    private User user;
-
-    @JoinColumn(name = "team_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Team team;
 
     private LocalDateTime eventStartTime;
     private LocalDateTime eventEndTime;
@@ -33,11 +26,9 @@ public class Event {
     private boolean eventIsRoom;
 
     @Builder
-    private Event(User user, Team team, LocalDateTime eventStartTime, LocalDateTime eventEndTime,
+    private Event(LocalDateTime eventStartTime, LocalDateTime eventEndTime,
                   String eventTitle, String eventContent, boolean eventIsRoom)
     {
-        this.user = user;
-        this.team = team;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.eventTitle = eventTitle;

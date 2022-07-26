@@ -1,5 +1,6 @@
 package com.cranesch.cranewebbackend.dto;
 
+import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.Gallery;
 import com.cranesch.cranewebbackend.entity.Video;
 import lombok.Builder;
@@ -10,7 +11,7 @@ public class VideoDto {
 
     private String videoUrl;
 
-    private Gallery gallery;
+    private Board board;
 
 //    public Video toEntity(){
 //        return Video.builder()
@@ -20,9 +21,9 @@ public class VideoDto {
 //    }
 
     @Builder
-    public VideoDto(String videoUrl,Gallery gallery)
+    public VideoDto(String videoUrl,Board board)
     {
         this.videoUrl=videoUrl;
-        this.gallery=gallery;
+        this.board=board;
     }
 }

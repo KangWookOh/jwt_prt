@@ -1,5 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
+import com.cranesch.cranewebbackend.entity.enums.BoardState;
 import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,18 +28,28 @@ public class Board extends BaseTimeEntity{
     private BoardType boardType;
 
     @Column(nullable = false)
-    private Long boardView;
+    private int boardView;
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private BoardState boardState;
 
     @JoinColumn(nullable = false, name ="user_id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User user;
 
+    @JoinColumn(nullable = true, name="music_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Music music;
+
     @Builder
-    public Board(User user, String boardTitle, String boardContents, BoardType boardType, Long boardView){
+    public Board(User user, Music music, String boardTitle, String boardContents, BoardType boardType, int boardView, BoardState boardState){
         this.user = user;
+        this.music = music;
         this.boardTitle = boardTitle;
         this.boardContents = boardContents;
         this.boardType = boardType;
+        this.boardState = boardState;
         this.boardView = boardView;
     }
 }

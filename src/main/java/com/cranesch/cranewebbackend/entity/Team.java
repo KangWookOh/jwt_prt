@@ -19,14 +19,16 @@ public class Team {
     @Enumerated(value = EnumType.STRING)
     private TeamType teamType;
 
-
     private String teamName;
 
+    private Boolean isActive;
+
     @Builder
-    private Team(TeamType teamType, String teamName)
+    private Team(TeamType teamType, String teamName, Boolean isActive)
     {
         this.teamType = teamType;
         this.teamName = teamName;
+        this.isActive = isActive;
     }
 
 }

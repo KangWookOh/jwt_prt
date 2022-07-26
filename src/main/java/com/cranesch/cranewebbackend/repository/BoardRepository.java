@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByBoardType(BoardType boardType);
-
     List<Board> findByUserId(Long userId);
+    List<Board> findByMusicId(Long musicId);
+
+    @Query("UPDATE Board b set b.boardView = b.boardView + 1 where b.id = :id")
+    int updateView(Long id);
 }

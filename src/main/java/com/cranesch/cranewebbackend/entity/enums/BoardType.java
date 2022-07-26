@@ -4,5 +4,7 @@ public enum BoardType {
     NOTICE,
     FREE,
     ADMIN,
-    INFO
+    INFO,
+    PICGALLERY,
+    VIDGALLERY
 }

@@ -26,6 +26,7 @@ public class TeamTest {
     public void CreateTeam(){
         TeamDto teamDto = TeamDto.builder()
                 .teamName("축제 합주팀")
+                .isActive(true)
                 .build();
         teamDto.setTeamType(TeamType.PERFORM);
 

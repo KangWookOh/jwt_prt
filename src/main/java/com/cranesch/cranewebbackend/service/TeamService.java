@@ -2,14 +2,12 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.TeamDto;
-import com.cranesch.cranewebbackend.dto.UserDto;
 import com.cranesch.cranewebbackend.entity.Match;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.MatchRepository;
 import com.cranesch.cranewebbackend.repository.TeamRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.math.*;
 
 @Service
 @Slf4j
@@ -35,6 +32,7 @@ public class TeamService {
        Team team= Team.builder()
                .teamName(teamDto.getTeamName())
                .teamType(teamDto.getTeamType())
+               .isActive(teamDto.getIsActive())
                .build();
        return teamRepository.save(team).getId();
     }
@@ -71,6 +69,7 @@ public class TeamService {
             TeamDto dto = TeamDto.builder()
                     .teamName(t.getTeamName())
                     .teamType(t.getTeamType())
+                    .isActive(t.getIsActive())
                     .build();
 
             teamDtoList.add(dto);

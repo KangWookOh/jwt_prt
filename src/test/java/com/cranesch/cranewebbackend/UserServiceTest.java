@@ -31,7 +31,7 @@ public class UserServiceTest {
     @Test
     public void test(){
 
-//        for(int i =1; i <= 30; i++) {
+        for(int i =1; i <= 30; i++) {
 
 //            UserDto Udto = UserDto.builder()
 //                    .userName("user" + i)
@@ -61,7 +61,7 @@ public class UserServiceTest {
                     .session(Session.BASS)
                     .build();
             userService.SignUp(signupDto);
-//        }
+        }
     }
 
 

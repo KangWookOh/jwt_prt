@@ -5,6 +5,7 @@ import com.cranesch.cranewebbackend.dto.ReplyDto;
 import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.Reply;
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.enums.BoardState;
 import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import com.cranesch.cranewebbackend.repository.BoardRepository;
 import com.cranesch.cranewebbackend.repository.ReplyRepository;
@@ -39,7 +40,8 @@ public class BoardService {
                 .boardTitle(dto.getBoardTitle())
                 .boardContents(dto.getBoardContents())
                 .boardType(dto.getBoardType())
-                .boardView(Long.valueOf(0))
+                .boardView(0)
+                .boardState(BoardState.BASIC) //
                 .user(optionalUser.get())
                 .build();
 
@@ -67,6 +69,11 @@ public class BoardService {
         return replyRepository.save(reply).getId();
     }
 
+    @Transactional
+    public int increaseBoardView(Long id){
+        return boardRepository.updateView(id);
+    }
+
     @Transactional(readOnly = true)
     public List<BoardDto> ReadBoardByType(BoardType boardType){
         List<Board> boardList = boardRepository.findByBoardType(boardType);
@@ -75,18 +82,19 @@ public class BoardService {
             log.info("NoBoard");
         }
 
-        for(Board b : boardList){
-            BoardDto dto = BoardDto.builder()
-                    .boardTitle(b.getBoardTitle())
-                    .boardContents(b.getBoardContents())
-                    .boardType(b.getBoardType())
-                    .user(b.getUser())
-                    .boardView(b.getBoardView())
-                    .build();
+        for(Board b : boardList) {
+            if (b.getBoardState() == BoardState.BASIC) { // 이렇게 하는게 맞을가요
+                BoardDto dto = BoardDto.builder()
+                        .boardTitle(b.getBoardTitle())
+                        .boardContents(b.getBoardContents())
+                        .boardType(b.getBoardType())
+                        .user(b.getUser())
+                        .boardView(b.getBoardView())
+                        .build();
 
-            boardDtoList.add(dto);
+                boardDtoList.add(dto);
+            }
         }
-
         return boardDtoList;
     }
 
@@ -98,8 +106,6 @@ public class BoardService {
         }
 
         Board board = optionalBoard.get();
-
-
 
         BoardDto dto = BoardDto.builder()
                 .boardTitle(board.getBoardTitle())

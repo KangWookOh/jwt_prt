@@ -31,7 +31,7 @@ public class BoardTest {
             BoardDto bdto = BoardDto.builder()
                     .boardTitle("BoardTest" + i)
                     .boardContents("testcontents" + i)
-                    .boardType(BoardType.INFO)
+                    .boardType(BoardType.ADMIN)
                     .build();
 
             boardService.CreateBoard(bdto, 3L);

@@ -1,5 +1,6 @@
 package com.cranesch.cranewebbackend.dto;
 
+import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.Gallery;
 import com.cranesch.cranewebbackend.entity.Picture;
 import lombok.Builder;
@@ -10,7 +11,7 @@ public class PictureDto {
 
     private String pictureUrl;
 
-    private Gallery gallery;
+    private Board board;
 
 //    public Picture toEntity(){
 //        return Picture.builder()
@@ -19,9 +20,9 @@ public class PictureDto {
 //                .build();
 //    }
     @Builder
-    public PictureDto (String pictureUrl, Gallery gallery)
+    public PictureDto (String pictureUrl, Board board)
     {
         this.pictureUrl = pictureUrl;
-        this.gallery = gallery;
+        this.board = board;
     }
 }
