@@ -25,7 +25,7 @@ public class Match {
     private User user;
 
     @JoinColumn(name = "team_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
     @Builder

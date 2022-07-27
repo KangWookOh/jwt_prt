@@ -19,11 +19,11 @@ public class Reply extends BaseTimeEntity{
     private String replyComment;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     User user;
 
     @JoinColumn(name = "board_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     Board board;
 
     @Builder

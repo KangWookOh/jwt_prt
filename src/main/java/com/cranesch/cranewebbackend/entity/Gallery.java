@@ -27,7 +27,7 @@ public class Gallery {
     private GalleryType galleryType;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     User user;
 
     @JoinColumn(name = "music_id")

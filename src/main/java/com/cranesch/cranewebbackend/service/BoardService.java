@@ -5,6 +5,7 @@ import com.cranesch.cranewebbackend.dto.ReplyDto;
 import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.Reply;
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.Video;
 import com.cranesch.cranewebbackend.entity.enums.BoardState;
 import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import com.cranesch.cranewebbackend.repository.BoardRepository;
@@ -170,4 +171,31 @@ public class BoardService {
 //    {
 //        return boardRepository.UpdateView(id);
 //    }
+
+
+    @Transactional
+    public void DeleteReply(Long replyId){
+        Optional<Reply> optionalReply = replyRepository.findById(replyId);
+        if(optionalReply.isEmpty()){
+            log.error("Reply is not exist");
+            throw new EntityExistsException("NoReply");
+        }
+
+        replyRepository.delete(optionalReply.get());
+    }
+
+    @Transactional
+    public void DeleteBoard(Long boardId){
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        List<Reply> replyList = replyRepository.findByBoardId(boardId);
+        if(optionalBoard.isEmpty()){
+            log.error("Board is not exist");
+            throw new EntityExistsException("NoBoard");
+        }
+        for(Reply r : replyList){
+            replyRepository.delete(r);
+        }
+        boardRepository.delete(optionalBoard.get());
+    }
+
 }

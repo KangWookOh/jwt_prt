@@ -3,9 +3,11 @@ package com.cranesch.cranewebbackend.service;
 import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.TeamDto;
 import com.cranesch.cranewebbackend.entity.Match;
+import com.cranesch.cranewebbackend.entity.Reservation;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.MatchRepository;
+import com.cranesch.cranewebbackend.repository.ReservationRepository;
 import com.cranesch.cranewebbackend.repository.TeamRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final MatchRepository matchRepository;
     private final UserRepository userRepository;
+    private final ReservationRepository reservationRepository;
 
     @Transactional
     public Long CreatTeam(TeamDto teamDto){
@@ -41,6 +44,7 @@ public class TeamService {
     public Long AddTeamMember(MatchDto matchDto,Long teamId, Long userId){
         Optional<Team> optionalTeam = teamRepository.findById(teamId);
         if(optionalTeam.isEmpty()){
+            log.error("No team");
             throw new EntityExistsException("Team is not exist");
         }
 
@@ -54,6 +58,7 @@ public class TeamService {
                 .user(optionalUser.get())
                 .teamRole(matchDto.getTeamRole())
                 .build();
+
         return matchRepository.save(match).getId();
     }
 
@@ -99,6 +104,34 @@ public class TeamService {
             matchDtoList.add(dto);
         }
         return matchDtoList;
+    }
+
+    @Transactional
+    public void DeleteTeamMatch(Long matchId){
+        Optional<Match> optionalMatch = matchRepository.findById(matchId);
+        if(optionalMatch.isEmpty()){
+            log.error("Match is not exist");
+            throw new EntityExistsException("NoMatch");
+        }
+        matchRepository.delete(optionalMatch.get());
+    }
+
+    @Transactional
+    public void DeleteTeam(Long teamId){
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if(optionalTeam.isEmpty()){
+            log.error("Team is not exits");
+            throw new EntityExistsException("NoTeam");
+        }
+        List<Match> matchList = matchRepository.findByTeamId(teamId);
+        for(Match e : matchList){
+            matchRepository.delete(e);
+        }
+        List<Reservation>reservationList = reservationRepository.findByTeamId(teamId);
+        for(Reservation e : reservationList){
+            reservationRepository.delete(e);
+        }
+        teamRepository.delete(optionalTeam.get());
     }
 
 }

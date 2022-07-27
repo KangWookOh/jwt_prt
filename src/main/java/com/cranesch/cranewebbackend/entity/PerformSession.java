@@ -21,11 +21,11 @@ public class PerformSession {
     private Session session;
 
     @JoinColumn(name = "music_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Music music;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder

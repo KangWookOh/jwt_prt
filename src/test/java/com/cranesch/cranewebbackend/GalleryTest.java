@@ -144,4 +144,22 @@ public class GalleryTest {
             System.out.println("----------------------------");
         }
     }
+
+    @Test
+    public void PictureDeleteTest(){
+        Long pictureId = 1L;
+        galleryService.DeletePic(pictureId);
+    }
+
+    @Test
+    public void VideoDeleteTest(){
+        Long videoId =1L;
+        galleryService.DeleteVid(videoId);
+    }
+
+    @Test
+    public void DeleteGalleryBoard(){
+        Long galleryId = 1L;
+        galleryService.DeleteGalleryBoard(galleryId);
+    }
 }

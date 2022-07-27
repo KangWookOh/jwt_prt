@@ -19,7 +19,7 @@ public class Picture {
     private String pictureUrl;
 
     @JoinColumn(name = "board_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
 
     @Builder

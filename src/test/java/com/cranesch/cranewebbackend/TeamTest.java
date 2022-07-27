@@ -36,10 +36,10 @@ public class TeamTest {
     @Test
     public void MatchTeam(){
         MatchDto matchDto = MatchDto.builder()
-                .teamRole(TeamRole.Reader)
+                .teamRole(TeamRole.LEADER)
                 .build();
 
-        teamService.AddTeamMember(matchDto, 1L, 1L);
+        teamService.AddTeamMember(matchDto, 2L, 4L);
     }
 
     @Test
@@ -63,4 +63,18 @@ public class TeamTest {
         }
     }
     // 됐었는데 안될지도 모름
+
+    @Test
+    public void DelMatch()
+    {
+        Long matchId = 3L;
+        teamService.DeleteTeamMatch(matchId);
+    }
+
+    @Test
+    public void DelTeam()
+    {
+        Long teamId = 2L;
+        teamService.DeleteTeam(teamId);
+    }
 }

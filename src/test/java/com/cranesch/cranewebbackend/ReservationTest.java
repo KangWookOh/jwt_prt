@@ -34,7 +34,7 @@ public class ReservationTest {
                 .rsvFinish(LocalDateTime.of(2020,12,30,3,17,23).withNano(0))
                 .build();
 
-        reservationService.CreateTeamReservation(trdto, 1L);
+        reservationService.CreateTeamReservation(trdto, 3L);
 
     }
 
@@ -61,7 +61,7 @@ public class ReservationTest {
                 .eventIsRoom(false)
                 .build();
 
-        reservationService.CreateEvent(edto, 1L, 1L);
+        reservationService.CreateEvent(edto, 1L, 3L);
     }
 
     @Test
@@ -102,5 +102,15 @@ public class ReservationTest {
         }
     }
 
+    @Test
+    public void EventDeleteTest(){
+        Long eventId = 1L;
+        reservationService.DeleteEvent(eventId);
+    }
 
+    @Test
+    public void ReservationDeleteTest(){
+        Long reservationId = 1L;
+        reservationService.DeleteReservation(reservationId);
+    }
 }

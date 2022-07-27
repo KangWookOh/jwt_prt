@@ -88,4 +88,33 @@ public class EqService {
         }
         return eqRepairDtoList;
     }
+
+    @Transactional
+    public void DelEquipment(Long eqId)
+    {
+        Optional<Equipment> optionalEquipment = equipmentRepository.findById(eqId);
+        if(optionalEquipment.isEmpty())
+        {
+            throw new EntityExistsException("Equipment Not Exist");
+        }
+
+        List<EqRepair> equipmentList = eqRepairRepository.findByEquipmentId(eqId);
+
+        for(EqRepair r: equipmentList)
+        {
+            eqRepairRepository.deleteById(r.getId());
+        }
+        equipmentRepository.deleteById(eqId);
+    }
+
+    @Transactional
+    public void DelEqr(Long eqrId)
+    {
+        Optional<EqRepair> optionalEqRepair = eqRepairRepository.findById(eqrId);
+        if(optionalEqRepair.isEmpty())
+        {
+            throw new EntityExistsException("No Repair Exist");
+        }
+        eqRepairRepository.deleteById(eqrId);
+    }
 }

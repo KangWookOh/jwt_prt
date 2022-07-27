@@ -104,4 +104,25 @@ public class PerformTest {
             System.out.println("Session: "+ s.getSession() + " / Name: " + s.getUser().getUserName() +"\n");
         }
     }
+
+    @Test
+    public void DelPerformTest()
+    {
+        Long performId = 3L;
+        performService.DelPerform(performId);
+    }
+
+    @Test
+    public void DelMusicTest()
+    {
+        Long musicId = 1L;
+        performService.DelMusic(musicId);
+    }
+
+    @Test
+    public void DelSessionTest()
+    {
+        Long sessionId = 1L;
+        performService.DelSession(sessionId);
+    }
 }

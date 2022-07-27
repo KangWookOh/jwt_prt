@@ -64,5 +64,21 @@ public class UserServiceTest {
         }
     }
 
+    @Test
+    public void userupdatetest(){
+        UserDto dto = UserDto.builder()
+                .userName("송예림")
+                .userPhoneNum("01011111111")
+                .userRole(UserRole.USER)
+                .build();
+        userService.updateUser(dto,2L);
+    }
+
+    @Test
+    public void DelUserTest()
+    {
+        Long userId = 10L;
+        userService.DelUser(userId);
+    }
 
 }

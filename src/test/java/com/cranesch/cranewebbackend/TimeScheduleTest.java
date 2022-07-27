@@ -21,7 +21,7 @@ public class TimeScheduleTest {
     @Test
     public void ScheduleCreateTest(){
         TimeScheduleDto tdto = TimeScheduleDto.builder()
-                .timeSub("창의공학설계")
+                .timeSub("크레인개론")
                 .timeStart(LocalDateTime.of(2022,12,3,00,00,00))
                 .timeEnd(LocalDateTime.of(2022,12,4,00,00,00))
                 .build();
@@ -37,5 +37,11 @@ public class TimeScheduleTest {
            System.out.printf("Start Time : "+t.getTimeStart() + " / End Time : "+ t.getTimeEnd() +
                    " / Schedule Sub :"+ t.getTimeSub()+"\n");
        }
+    }
+    @Test
+    public void DelScheduleTest()
+    {
+        Long scheduleId = 2L;
+        scheduleService.DelSchedule(scheduleId);
     }
 }

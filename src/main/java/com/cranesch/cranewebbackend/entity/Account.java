@@ -16,7 +16,7 @@ public class Account {
     private Long id;
 
     @JoinColumn(name ="user_id")
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Column(nullable = false)
@@ -28,6 +28,8 @@ public class Account {
 
     @Column(nullable = false)
     private boolean Echeck;
+
+
 
     @Builder
     private Account(User user, String Email, String Password, boolean Echeck)

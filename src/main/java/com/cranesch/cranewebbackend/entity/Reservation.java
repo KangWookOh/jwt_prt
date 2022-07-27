@@ -19,7 +19,7 @@ public class Reservation {
     private Long id;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Column(nullable = false)
@@ -31,7 +31,7 @@ public class Reservation {
     private LocalDateTime rsvFinish;
 
     @JoinColumn(name = "team_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
     @Builder

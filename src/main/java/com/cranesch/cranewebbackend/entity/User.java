@@ -27,7 +27,7 @@ public class User {
 
     private String userStdId;
 
-    @Enumerated(value = EnumType.STRING) //
+    @Enumerated(value = EnumType.STRING)
     private Session session;
 
     private String userDept;
@@ -39,6 +39,12 @@ public class User {
     private int userTh;
 
     private String userPhoneNum;
+
+    //update method test
+    public void usernameUpdate(String userName){
+        this.userName = userName;
+    }
+    //test
 
     @Builder
     public User(String userName, String userBirth, String userStdId, Session session, String userDept,

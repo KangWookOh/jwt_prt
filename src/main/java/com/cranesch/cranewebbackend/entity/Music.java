@@ -25,7 +25,7 @@ public class Music {
 
 
     @JoinColumn(name = "perform_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Perform perform;
 
     @Builder

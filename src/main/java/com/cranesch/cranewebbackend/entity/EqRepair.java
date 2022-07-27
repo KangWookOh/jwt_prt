@@ -22,7 +22,7 @@ public class EqRepair {
     private String eqrMemo;
 
     @JoinColumn(name = "equipment_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Equipment equipment;
 
     @Builder

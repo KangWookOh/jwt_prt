@@ -34,14 +34,14 @@ public class BoardTest {
                     .boardType(BoardType.ADMIN)
                     .build();
 
-            boardService.CreateBoard(bdto, 3L);
+            boardService.CreateBoard(bdto, 1L);
         }
     }
     
     @Test
     public void ReplyCreateTest(){
         ReplyDto replyDto = ReplyDto.builder()
-                .replyComment("댓글 테스트")
+                .replyComment("댓글 테스트2")
                 .build();
         
         boardService.CreateReply(replyDto,2L, 1L);
@@ -84,5 +84,18 @@ public class BoardTest {
                     b.getBoardTitle() + " / content : " + b.getBoardContents() +
                     " / boardCount : " + i + "\n");
         }
+    }
+
+
+    @Test
+    public void DeleteBoard(){
+        Long boardId = 1L;
+        boardService.DeleteBoard(boardId);
+    }
+
+    @Test
+    public void DeleteReply(){
+        Long ReplyId = 1L;
+        boardService.DeleteReply(ReplyId);
     }
 }

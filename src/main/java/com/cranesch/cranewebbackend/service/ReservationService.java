@@ -11,14 +11,16 @@ import com.cranesch.cranewebbackend.repository.ReservationRepository;
 import com.cranesch.cranewebbackend.repository.TeamRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ReservationService {
@@ -144,7 +146,36 @@ public class ReservationService {
         }
         return eventDtoList;
     }
+    @Transactional
+    public void DeleteEvent(Long eventId){
+        Optional<Event> delEvent = eventRepository.findById(eventId);
+        if(delEvent.isEmpty())
+        {
+            log.info("No event");
+            throw new EntityExistsException("Event exist");
+        }
+        eventRepository.deleteById(eventId);
+    }
 
 
+    @Transactional
+    public void DeleteReservation(Long reservationId){
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if(optionalReservation.isEmpty()){
+            log.info("NoReservation");
+            throw new EntityExistsException("Reservation is not exist");
+        }
 
-}
+        reservationRepository.delete(optionalReservation.get());
+    }
+    /*@Transactional
+    public void DelReservation(Long reservationId)
+    {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if(optionalReservation.isEmpty())
+        {
+            throw new
+        }*/
+    }
+
+

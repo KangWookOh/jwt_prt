@@ -6,6 +6,7 @@ import com.cranesch.cranewebbackend.entity.User;
 import com.cranesch.cranewebbackend.repository.TimescheduleRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,18 @@ public class ScheduleService {
         }
 
         return timeScheduleDtoList;
+    }
+
+    @Transactional
+    public void DelSchedule(Long scheduleId)
+    {
+        Optional<Timeschedule> optionalTimeschedule = timescheduleRepository.findById(scheduleId);
+        if(optionalTimeschedule.isEmpty())
+        {
+            throw new EntityExistsException("Schedule Not Exist");
+        }
+        timescheduleRepository.deleteById(scheduleId);
+
     }
 
 }

@@ -35,11 +35,12 @@ public class Board extends BaseTimeEntity{
     private BoardState boardState;
 
     @JoinColumn(nullable = false, name ="user_id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+
     @JoinColumn(nullable = true, name="music_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Music music;
 
     @Builder

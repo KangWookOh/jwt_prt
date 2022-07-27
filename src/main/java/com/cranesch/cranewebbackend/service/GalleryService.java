@@ -30,6 +30,7 @@ public class GalleryService {
     private VideoRepository videoRepository;
     private PictureRepository pictureRepository;
     private PerformSessionRepository performSessionRepository;
+    private ReplyRepository replyRepository;
 
     @Transactional
     public Long CreateGallery(BoardDto boardDto, Long userId, Long musicId){
@@ -279,5 +280,56 @@ public class GalleryService {
             galleryDtoList.add(dto);
         }
         return galleryDtoList;
+    }
+
+
+    @Transactional
+    public void DeleteVid(Long vidId){
+        Optional<Video> optionalVideo = videoRepository.findById(vidId);
+        if(optionalVideo.isEmpty()){
+            log.error("Video not exist");
+            throw new EntityExistsException("NoVideo");
+        }
+
+        videoRepository.delete(optionalVideo.get());
+    }
+
+    @Transactional
+    public void DeletePic(Long picId){
+        Optional<Picture> optionalPicture = pictureRepository.findById(picId);
+        if(optionalPicture.isEmpty()){
+            log.error("Picture not exist");
+            throw new EntityExistsException("NoPicture");
+        }
+
+        pictureRepository.delete(optionalPicture.get());
+    }
+
+    @Transactional
+    public void DeleteGalleryBoard(Long galleryId){
+        Optional<Board> optionalBoard = boardRepository.findById(galleryId);
+        if(optionalBoard.isEmpty()){
+            log.error("Gallery Board is not exist");
+            throw new EntityExistsException("NoBoard");
+        }
+        Board board = optionalBoard.get();
+        //pic del
+        List<Picture> pictureList = pictureRepository.findByboardId(galleryId);
+        for(Picture e : pictureList){
+            pictureRepository.delete(e);
+        }
+        //vid del
+        List<Video> videoList = videoRepository.findByboardId(galleryId);
+        for(Video e : videoList){
+            videoRepository.delete(e);
+        }
+
+        //reply del
+        List<Reply> replyList = replyRepository.findByBoardId(galleryId);
+        for(Reply e : replyList){
+            replyRepository.delete(e);
+        }
+
+        boardRepository.delete(board);
     }
 }

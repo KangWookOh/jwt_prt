@@ -139,7 +139,7 @@ public class PerformService {
    public List<PerformSessionDto> ReadSessionByMusic(Long musicId){
        Optional<Music> optionalMusic = musicRepository.findById(musicId);
        if(optionalMusic.isEmpty()){
-           new EntityExistsException("Music not exist");
+           throw new EntityExistsException("Music not exist");
        }
        List<PerformSession> pSessionList = performSessionRepository.findByMusicId(musicId);
        List<PerformSessionDto> performSessionList = new ArrayList<>();
@@ -187,6 +187,50 @@ public class PerformService {
         }
 
         return musicDtoList;
+   }
+
+   @Transactional
+    public void DelPerform(Long performId)
+   {
+       Optional<Perform> optionalPerform = performRepository.findById(performId);
+       if(optionalPerform.isEmpty())
+       {
+           throw new EntityExistsException("Perform Not Exist");
+       }
+       List<Music> musicList = musicRepository.findByPerformId(performId);
+
+       for(Music m: musicList)
+       {
+           List<PerformSession> performSessionList= performSessionRepository.findByMusicId(m.getId());
+           for(PerformSession s: performSessionList)
+           {
+               performSessionRepository.deleteById(s.getId());
+           }
+           musicRepository.deleteById(m.getId());
+       }
+       performRepository.deleteById(performId);
+   }
+
+   @Transactional
+    public void DelMusic(Long musicId) {
+       Optional<Music> optionalMusic = musicRepository.findById(musicId);
+       if (optionalMusic.isEmpty()) {
+           throw new EntityExistsException("Music Not Exist");
+       }
+       List<PerformSession> performSessionList = performSessionRepository.findByMusicId(musicId);
+
+       for (PerformSession s : performSessionList) {
+           performSessionRepository.deleteById(s.getId());
+       }
+
+       musicRepository.deleteById(musicId);
+   }
+
+   @Transactional
+    public void DelSession(Long sessionId)
+   {
+       Optional<PerformSession> performSession = performSessionRepository.findById(sessionId);
+       performSessionRepository.delete(performSession.get());
    }
 
 }

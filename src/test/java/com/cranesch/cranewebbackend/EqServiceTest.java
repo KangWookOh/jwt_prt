@@ -29,8 +29,8 @@ public class EqServiceTest {
     public void eqCreateTest(){
         EquipmentDto Edto = EquipmentDto.builder()
                 .eqBirth("2018-00-00")
-                .eqSession(Session.BASS)
-                .eqName("Squire Bass")
+                .eqSession(Session.GUITAR)
+                .eqName("cracked guitar")
                 .build();
 
         eqService.CreateEq(Edto);
@@ -71,4 +71,19 @@ public class EqServiceTest {
                     + " / Price : " + e.getEqrPrice());
         }
     }
+
+    @Test
+    public void DelEquipmentTest()
+    {
+        Long eqId = 2L;
+        eqService.DelEquipment(eqId);
+    }
+
+    @Test
+    public void DelEqRTest()
+    {
+        Long eqrId = 1L;
+        eqService.DelEqr(eqrId);
+    }
+
 }
