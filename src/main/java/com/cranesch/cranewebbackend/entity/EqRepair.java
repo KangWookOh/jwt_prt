@@ -25,6 +25,13 @@ public class EqRepair {
     @ManyToOne(fetch = FetchType.LAZY)
     private Equipment equipment;
 
+    public void eqRUpdate(LocalDate eqrDate, String eqrPrice, String eqrMemo)
+    {
+        this.eqrDate= eqrDate;
+        this.eqrPrice = eqrPrice;
+        this.eqrMemo = eqrMemo;
+    }
+
     @Builder
     private EqRepair(LocalDate eqrDate, String eqrPrice, String eqrMemo, Equipment equipment)
     {

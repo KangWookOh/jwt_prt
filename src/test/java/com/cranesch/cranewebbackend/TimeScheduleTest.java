@@ -44,4 +44,15 @@ public class TimeScheduleTest {
         Long scheduleId = 2L;
         scheduleService.DelSchedule(scheduleId);
     }
+
+    @Test
+    public void UpdateTimeschduleTest(){
+        Long Id = 3L;
+        TimeScheduleDto dto = TimeScheduleDto.builder()
+                .timeSub("new subname")
+                .timeStart(LocalDateTime.of(2000,1,1,0,0,0))
+                .timeEnd(LocalDateTime.of(2000,12,31,23,59,59))
+                .build();
+        scheduleService.UpdateTimeschedule(Id, dto);
+    }
 }

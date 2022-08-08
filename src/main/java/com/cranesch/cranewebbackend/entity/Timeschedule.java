@@ -29,6 +29,11 @@ public class Timeschedule {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    public void UpdateTimeschedule(String timeSub, LocalDateTime timeStart, LocalDateTime timeEnd){
+        this.timeSub = timeSub;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
     @Builder
     public Timeschedule(String timeSub, LocalDateTime timeStart, LocalDateTime timeEnd, User user){
         this.timeSub = timeSub;

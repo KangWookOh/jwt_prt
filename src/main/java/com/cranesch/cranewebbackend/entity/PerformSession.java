@@ -28,10 +28,19 @@ public class PerformSession {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    public void updateSession(Session session,Music music,User user)
+    {
+        this.session = session;
+        this.music = music;
+        this.user = user;
+    }
+
     @Builder
     public PerformSession(Session session, Music music, User user){
         this.session = session;
         this.music = music;
         this.user = user;
     }
+
+
 }

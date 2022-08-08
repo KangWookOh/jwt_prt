@@ -2,9 +2,7 @@ package com.cranesch.cranewebbackend.service;
 
 import com.cranesch.cranewebbackend.dto.SignupDto;
 import com.cranesch.cranewebbackend.dto.UserDto;
-import com.cranesch.cranewebbackend.entity.Account;
 import com.cranesch.cranewebbackend.entity.User;
-import com.cranesch.cranewebbackend.repository.AccountRepository;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -25,27 +24,23 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final AccountRepository accountRepository;
 
     @Transactional
-    public Long SignUp(SignupDto signupDto) {
+    public Long SignUp(UserDto userDto) {
         User user = User.builder()
-                .userName(signupDto.getUserName())
-                .userBirth(signupDto.getUserBirth())
-                .userStdId(signupDto.getUserStdId())
-                .session(signupDto.getSession())
-                .userDept(signupDto.getUserDept())
-                .userRole(signupDto.getUserRole())
-                .userTh(signupDto.getUserTh())
-                .userPhoneNum(signupDto.getUserPhoneNum())
+                .userName(userDto.getUserName())
+                .userBirth(userDto.getUserBirth())
+                .userStdId(userDto.getUserStdId())
+                .session(userDto.getSession())
+                .userDept(userDto.getUserDept())
+                .userRole(userDto.getUserRole())
+                .userTh(userDto.getUserTh())
+                .userPhoneNum(userDto.getUserPhoneNum())
+                .userEmail(userDto.getUserEmail())
+                .userPassword(userDto.getUserPassword())
                 .build();
 
-        Account account = Account.builder()
-                .Email(signupDto.getUserEmail())
-                .Password(signupDto.getUserPassword())
-                .user(user)
-                .build();
-        return accountRepository.save(account).getId();
+        return userRepository.save(user).getId();
     }
 
     public List<UserDto> getAllUser() {
@@ -70,27 +65,12 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(UserDto userDto, Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.usernameUpdate(userDto.getUserName());
-//            user = User.builder()
-//                    .userName(userDto.getUserName())
-//                    .userPhoneNum(userDto.getUserPhoneNum())
-//                    .userDept(userDto.getUserDept())
-//                    .userTh(user.getUserTh())
-//                    .userRole(user.getUserRole())
-//                    .userStdId(user.getUserStdId())
-//                    .userBirth(user.getUserBirth())
-//                    .session(user.getSession())
-//                    .build();
-
-
-             userRepository.save(user);
-        }
-
+    public User updateUser(Long id ,UserDto userDto) {
+        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException(" "));
+        user.usernameUpdate(userDto.getUserDept(), userDto.getUserPhoneNum());
+        return userRepository.save(user);
     }
+
 
     @Transactional
     public void DelUser(Long userId)
@@ -100,12 +80,6 @@ public class UserService {
         {
             throw new EntityExistsException("User Not Exist");
         }
-        Optional<Account> optionalAccount = accountRepository.findByUserId(userId);
-        if(optionalUser.isEmpty())
-        {
-            throw new EntityExistsException("Wrong Access");
-        }
-        accountRepository.delete(optionalAccount.get());
 
         userRepository.deleteById(userId);
     }

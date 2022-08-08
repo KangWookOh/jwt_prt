@@ -23,10 +23,15 @@ public class Music {
 
     //private String perform_name;
 
-
     @JoinColumn(name = "perform_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Perform perform;
+
+    public void musicUpdate(String musicName, String musicSinger)
+    {
+        this.musicName = musicName;
+        this.musicSinger = musicSinger;
+    }
 
     @Builder
     public Music(String musicName, String musicSinger, Perform perform){

@@ -23,6 +23,12 @@ public class Team {
 
     private Boolean isActive;
 
+    public void teamUpdate(TeamType teamType,String teamName)
+    {
+        this.teamType=teamType;
+        this.teamName=teamName;
+    }
+
     @Builder
     private Team(TeamType teamType, String teamName, Boolean isActive)
     {

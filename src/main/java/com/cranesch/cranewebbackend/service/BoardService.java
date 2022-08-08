@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -196,6 +197,26 @@ public class BoardService {
             replyRepository.delete(r);
         }
         boardRepository.delete(optionalBoard.get());
+    }
+
+    @Transactional
+    public Board updateBoard(Long id , BoardDto boardDto)
+    {
+        Board board = boardRepository.findById(id).orElseThrow(()->new NoSuchElementException("fail"));
+        board.updateBoard(boardDto.getBoardTitle(),boardDto.getBoardContents(),boardDto.getBoardType());
+        return boardRepository.save(board);
+    }
+    @Transactional
+    public Reply updateReply(Long boardId ,ReplyDto replyDto)
+    {
+        // List<Reply> reply = replyRepository.findByBoardId(boardId);
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+
+        Reply reply= Reply.builder()
+                .replyComment(replyDto.getReplyComment()).build();
+        reply.updateReply(reply.getReplyComment());
+        return replyRepository.save(reply);
+
     }
 
 }

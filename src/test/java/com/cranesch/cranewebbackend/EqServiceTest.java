@@ -86,4 +86,28 @@ public class EqServiceTest {
         eqService.DelEqr(eqrId);
     }
 
+    @Test
+    public void UpdateEqTest()
+    {
+        Long eqId = 1L;
+        EquipmentDto dto = EquipmentDto.builder()
+                .eqName("New Guitar")
+                .eqBirth("2022-08-08")
+                .build();
+
+        eqService.updateEquipment(eqId, dto);
+    }
+
+    @Test
+    public void UpdateEqrTest()
+    {
+        Long eqrId = 3L;
+        EqRepairDto dto = EqRepairDto.builder()
+                .eqrDate(LocalDate.of(2022, 7,8))
+                .eqrPrice("12345")
+                .eqrMemo("Changed Memo")
+                .build();
+
+        eqService.updateEqr(eqrId, dto);
+    }
 }

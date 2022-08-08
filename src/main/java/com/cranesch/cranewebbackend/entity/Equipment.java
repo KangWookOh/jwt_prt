@@ -22,6 +22,13 @@ public class Equipment {
     @Enumerated(value = EnumType.STRING)
     private Session eqSession;
 
+
+    public void equipmentUpdate(String eqName, String eqBirth)
+    {
+        this.eqName = eqName;
+        this.eqBirth = eqBirth;
+    }
+
     @Builder
     private Equipment (String eqName, String eqBirth, Session eqSession)
     {

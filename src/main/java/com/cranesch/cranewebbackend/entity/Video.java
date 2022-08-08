@@ -23,6 +23,10 @@ public class Video {
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
 
+    public void UpdateVideoUrl(String videoUrl){
+        this.videoUrl = videoUrl;
+    }
+
     @Builder
     public Video(String videoUrl, Board board){
         this.videoUrl = videoUrl;

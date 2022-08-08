@@ -2,9 +2,11 @@ package com.cranesch.cranewebbackend;
 
 import com.cranesch.cranewebbackend.dto.BoardDto;
 import com.cranesch.cranewebbackend.dto.ReplyDto;
+import com.cranesch.cranewebbackend.entity.Board;
 import com.cranesch.cranewebbackend.entity.enums.BoardType;
 import com.cranesch.cranewebbackend.repository.UserRepository;
 import com.cranesch.cranewebbackend.service.BoardService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class BoardTest {
                 .replyComment("댓글 테스트2")
                 .build();
         
-        boardService.CreateReply(replyDto,2L, 1L);
+        boardService.CreateReply(replyDto,2L, 2L);
     }
 
     @Test
@@ -97,5 +99,18 @@ public class BoardTest {
     public void DeleteReply(){
         Long ReplyId = 1L;
         boardService.DeleteReply(ReplyId);
+    }
+    @Test
+    @DisplayName("게시판 업데이트 테스트")
+    public void UpdateBoard()
+    {
+        Long boardId=2L;
+        BoardDto boardDto =BoardDto.builder()
+                .boardTitle("Test Confirm")
+                .boardContents("Test Confirm")
+                .boardType(BoardType.ADMIN)
+                .build();
+        boardService.updateBoard(boardId,boardDto);
+
     }
 }

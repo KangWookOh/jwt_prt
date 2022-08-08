@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -331,5 +332,29 @@ public class GalleryService {
         }
 
         boardRepository.delete(board);
+    }
+
+    @Transactional
+    public PictureDto updatePicture(Long pictureId, PictureDto pictureDto){
+        Picture picture = pictureRepository.findById(pictureId).orElseThrow(() -> new NoSuchElementException("fail"));
+        picture.UpdatePictureUrl(pictureDto.getPictureUrl());
+        pictureRepository.save(picture);
+        
+        return PictureDto.builder()
+                .pictureUrl(picture.getPictureUrl())
+                .board(picture.getBoard())
+                .build();
+    }
+
+    @Transactional
+    public VideoDto updateVideo(Long videoId, VideoDto videoDto){
+        Video video = videoRepository.findById(videoId).orElseThrow(() -> new NoSuchElementException("fail"));
+        video.UpdateVideoUrl(videoDto.getVideoUrl());
+        videoRepository.save(video);
+
+        return VideoDto.builder()
+                .videoUrl(video.getVideoUrl())
+                .board(video.getBoard())
+                .build();
     }
 }

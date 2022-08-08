@@ -44,7 +44,7 @@ public class PerformTest {
                 .musicSinger("아이유")
                 .build();
 
-        performService.CreateMusic(musicDto,Long.valueOf(3));
+        performService.CreateMusic(musicDto,Long.valueOf(4));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class PerformTest {
                 .session(Session.GUITAR)
                 .build();
 
-        performService.CreatePerformSession(sessionDto, Long.valueOf(1),Long.valueOf(1));
+        performService.CreatePerformSession(sessionDto, Long.valueOf(1),Long.valueOf(4));
     }
 
     @Test
@@ -124,5 +124,39 @@ public class PerformTest {
     {
         Long sessionId = 1L;
         performService.DelSession(sessionId);
+    }
+
+    @Test
+    public void UpdateMusicTest()
+    {
+        Long musicId = 4L;
+        MusicDto dto = MusicDto.builder()
+                .musicName("고백직전")
+                .musicSinger("소란")
+                .build();
+        performService.updateMusic(musicId, dto);
+    }
+
+    @Test
+    public void UpdateSessionTest()
+    {
+        Long musicId = 5L;
+        Long userId = 3L;
+        PerformSessionDto dto = PerformSessionDto.builder()
+                .session(Session.KEYBOARD)
+                .build();
+        performService.updateSession(musicId, userId, dto);
+    }
+
+    @Test
+    public void UpdatePerformTest(){
+        Long performId = 2L;
+        PerformDto performDto = PerformDto.builder()
+                .performName("new performName")
+                .performDate(LocalDateTime.of(2000,01,01,00,00,00))
+                .performPlace("new Place")
+                .performType(PerformType.OUTSIDE)
+                .build();
+        performService.updatePerform(performId, performDto);
     }
 }

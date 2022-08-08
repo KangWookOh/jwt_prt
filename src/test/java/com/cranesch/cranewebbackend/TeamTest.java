@@ -39,7 +39,7 @@ public class TeamTest {
                 .teamRole(TeamRole.LEADER)
                 .build();
 
-        teamService.AddTeamMember(matchDto, 2L, 4L);
+        teamService.AddTeamMember(matchDto, 3L, 4L);
     }
 
     @Test

@@ -26,6 +26,11 @@ public class Reply extends BaseTimeEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     Board board;
 
+    public void updateReply(String replyComment)
+    {
+        this.replyComment=replyComment;
+    }
+
     @Builder
     public Reply(String replyComment, User user, Board board){
         this.replyComment = replyComment;

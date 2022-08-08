@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -116,5 +117,21 @@ public class EqService {
             throw new EntityExistsException("No Repair Exist");
         }
         eqRepairRepository.deleteById(eqrId);
+    }
+
+    @Transactional
+    public Equipment updateEquipment(Long eqId, EquipmentDto dto)
+    {
+        Equipment equipment = equipmentRepository.findById(eqId).orElseThrow(()->new NoSuchElementException("Eq Not Exist"));
+        equipment.equipmentUpdate(dto.getEqName(), dto.getEqBirth());
+        return equipmentRepository.save(equipment);
+    }
+
+    @Transactional
+    public EqRepair updateEqr(Long eqrId, EqRepairDto dto)
+    {
+        EqRepair eqRepair = eqRepairRepository.findById(eqrId).orElseThrow(()->new NoSuchElementException("Eqr Not Exist"));
+        eqRepair.eqRUpdate(dto.getEqrDate(), dto.getEqrPrice(), dto.getEqrMemo());
+        return eqRepairRepository.save(eqRepair);
     }
 }

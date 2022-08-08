@@ -7,6 +7,7 @@ import com.cranesch.cranewebbackend.entity.Music;
 import com.cranesch.cranewebbackend.entity.Perform;
 import com.cranesch.cranewebbackend.entity.PerformSession;
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.enums.Session;
 import com.cranesch.cranewebbackend.repository.MusicRepository;
 import com.cranesch.cranewebbackend.repository.PerformRepository;
 import com.cranesch.cranewebbackend.repository.PerformSessionRepository;
@@ -18,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Vector;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -233,4 +231,34 @@ public class PerformService {
        performSessionRepository.delete(performSession.get());
    }
 
+   @Transactional
+    public void updateMusic(Long musicId, MusicDto dto)
+   {
+       Music music = musicRepository.findById(musicId).orElseThrow(()->new NoSuchElementException("Music Not Exist"));
+       music.musicUpdate(dto.getMusicName(), dto.getMusicSinger());
+       musicRepository.save(music);
+   }
+
+   @Transactional
+    public PerformDto updatePerform(Long performId, PerformDto dto){
+       Perform perform = performRepository.findById(performId).orElseThrow(() -> new NoSuchElementException("NoPerform"));
+       perform.updatePerform(dto.getPerformName(), dto.getPerformPlace(), dto.getPerformDate(), dto.getPerformType());
+       performRepository.save(perform);
+
+       return PerformDto.builder()
+               .performName(perform.getPerformName())
+               .performPlace(perform.getPerformPlace())
+               .performDate(perform.getPerformDate())
+               .performType(perform.getPerformType())
+               .build();
+   }
+
+   @Transactional
+    public void updateSession(Long sessionId,Long userId, PerformSessionDto dto)
+   {
+       PerformSession session = performSessionRepository.findById(sessionId).orElseThrow(()->new NoSuchElementException("Session Not Exist"));
+       User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not exist"));
+       session.updateSession(dto.getSession(), session.getMusic(), user);
+       performSessionRepository.save(session);
+   }
 }

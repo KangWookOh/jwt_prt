@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -132,6 +133,14 @@ public class TeamService {
             reservationRepository.delete(e);
         }
         teamRepository.delete(optionalTeam.get());
+    }
+
+    @Transactional
+    public Team updateTeam(Long id ,TeamDto teamDto)
+    {
+        Team team = teamRepository.findById(id).orElseThrow(() -> new NoSuchElementException("failure"));
+        team.teamUpdate(teamDto.getTeamType(),teamDto.getTeamName());
+        return teamRepository.save(team);
     }
 
 }

@@ -29,6 +29,12 @@ public class UserDto {
 
     private String userPhoneNum;
 
+    private String userPassword;
+
+    private String userEmail;
+
+    private boolean eCheck;
+
 
 //    public User toEntity() {
 //        return User.builder()
@@ -42,8 +48,13 @@ public class UserDto {
 //                .userPhoneNum(userPhoneNum)
 //                .build();
 //    }
+
+
+
     @Builder
-    public UserDto(String userName, String userBirth,String userStdId,String userDept,Integer userTh,String userPhoneNum,Session session,UserRole userRole)
+    public UserDto(String userName, String userBirth,String userStdId,String userDept,
+                   Integer userTh,String userPhoneNum,Session session,UserRole userRole,
+                   String userEmail, String userPassword, boolean eCheck)
     {
         this.userName=userName;
         this.userBirth=userBirth;
@@ -53,6 +64,9 @@ public class UserDto {
         this.userPhoneNum=userPhoneNum;
         this.session = session;
         this.userRole = userRole;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.eCheck = eCheck;
     }
 
 

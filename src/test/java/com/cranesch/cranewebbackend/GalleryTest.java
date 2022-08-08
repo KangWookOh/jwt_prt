@@ -38,7 +38,7 @@ public class GalleryTest {
                 .boardType(BoardType.PICGALLERY)
                 .boardState(BoardState.BASIC)
                 .build();
-        Long gall_id = galleryService.CreateGallery(boardDto, Long.valueOf(3), Long.valueOf(1));
+        Long gall_id = galleryService.CreateGallery(boardDto, Long.valueOf(3), Long.valueOf(4));
 
         for(int i =1; i <= photo_num; i++){
             PictureDto pictureDto = PictureDto.builder()
@@ -56,7 +56,7 @@ public class GalleryTest {
                 .boardType(BoardType.VIDGALLERY)
                 .build();
 
-        Long gall_id = galleryService.CreateGallery(boardDto, Long.valueOf(3), Long.valueOf(1));
+        Long gall_id = galleryService.CreateGallery(boardDto, Long.valueOf(3), Long.valueOf(4));
 
         VideoDto videoDto = VideoDto.builder()
                 .videoUrl("영상 URL 입니다")
@@ -161,5 +161,25 @@ public class GalleryTest {
     public void DeleteGalleryBoard(){
         Long galleryId = 1L;
         galleryService.DeleteGalleryBoard(galleryId);
+    }
+
+    @Test
+    public void UpdatePic(){
+        Long picId = 1L;
+        PictureDto pictureDto = PictureDto.builder()
+                .pictureUrl("updated pic url")
+                .build();
+
+        galleryService.updatePicture(picId, pictureDto);
+    }
+
+    @Test
+    public void UpdateVid(){
+        Long vidId = 1L;
+        VideoDto videoDto = VideoDto.builder()
+                .videoUrl("updated video url")
+                .build();
+
+        galleryService.updateVideo(vidId,videoDto);
     }
 }

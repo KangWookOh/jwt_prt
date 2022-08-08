@@ -27,6 +27,13 @@ public class Perform {
 
     private String performPlace;
 
+    public void updatePerform(String performName, String performPlace, LocalDateTime performDate, PerformType performType){
+        this.performName = performName;
+        this.performPlace = performPlace;
+        this.performType = performType;
+        this.performDate = performDate;
+    }
+
     @Builder
     public Perform(String performName, LocalDateTime performDate, PerformType performType, String performPlace){
         this.performName = performName;

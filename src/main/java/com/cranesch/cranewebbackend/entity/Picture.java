@@ -1,5 +1,6 @@
 package com.cranesch.cranewebbackend.entity;
 
+import com.cranesch.cranewebbackend.dto.PictureDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ public class Picture {
     @JoinColumn(name = "board_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
+
+    public void UpdatePictureUrl(String pictureUrl){
+        this.pictureUrl = pictureUrl;
+    }
 
     @Builder
     public Picture(String pictureUrl, Board board){

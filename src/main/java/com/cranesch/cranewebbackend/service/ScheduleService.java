@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Vector;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -74,6 +71,19 @@ public class ScheduleService {
         }
         timescheduleRepository.deleteById(scheduleId);
 
+    }
+
+    @Transactional
+    public TimeScheduleDto UpdateTimeschedule(Long shceduleId, TimeScheduleDto dto){
+        Timeschedule timeschedule = timescheduleRepository.findById(shceduleId).orElseThrow(() -> new NoSuchElementException("timeschedule not exist"));
+        timeschedule.UpdateTimeschedule(dto.getTimeSub(), dto.getTimeStart(), dto.getTimeEnd());
+        timescheduleRepository.save(timeschedule);
+
+        return TimeScheduleDto.builder()
+                .timeSub(timeschedule.getTimeSub())
+                .timeStart(timeschedule.getTimeStart())
+                .timeEnd(timeschedule.getTimeEnd())
+                .build();
     }
 
 }

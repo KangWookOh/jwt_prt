@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.cranesch.cranewebbackend.repository.UserRepository;
-import com.cranesch.cranewebbackend.repository.AccountRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -23,8 +22,7 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AccountRepository accountRepository;
+
 
 
 
@@ -48,23 +46,23 @@ public class UserServiceTest {
 //                    .email("######@###.com")
 //                    .password("a;lsdkfjafl;k")
 //                    .build();
-           SignupDto signupDto = SignupDto.builder()
+           UserDto userDto = UserDto.builder()
                     .userName("username")
                     .userBirth("20000000")
                     .userDept("학과")
                     .userRole(UserRole.ADMIN)
                     .userStdId("20000000")
                     .userTh(40)
-                    .email("hyeseong@sch.ac.kr")
+                    .userEmail("hyeseong@sch.ac.kr")
                     .userPhoneNum("01000000000")
-                    .password("pw")
+                    .userPassword("pw")
                     .session(Session.BASS)
                     .build();
-            userService.SignUp(signupDto);
+            userService.SignUp(userDto);
         }
     }
 
-    @Test
+    /*@Test
     public void userupdatetest(){
         UserDto dto = UserDto.builder()
                 .userName("송예림")
@@ -72,7 +70,7 @@ public class UserServiceTest {
                 .userRole(UserRole.USER)
                 .build();
         userService.updateUser(dto,2L);
-    }
+    }*/
 
     @Test
     public void DelUserTest()
