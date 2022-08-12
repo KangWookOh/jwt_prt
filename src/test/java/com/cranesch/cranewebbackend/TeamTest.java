@@ -54,15 +54,29 @@ public class TeamTest {
     @Test
     public void ReadMemberByTeam()
     {
-        Long teamId = 1L;
+        Long teamId = 3L;
         List<MatchDto> matchDtoList = teamService.ReadMemberByTeam(teamId);
 
         for(MatchDto m: matchDtoList)
         {
-            System.out.println("Session  : "+ m.getTeamRole() +" / Name : "+ m.getUser().getUserName());
+            System.out.println("Session  : "+ m.getTeamRole() +" / Name : "+ m.getUser().getUsername());
         }
     }
     // 됐었는데 안될지도 모름
+
+    @Test
+    public void ReadUserByTeam()
+    {
+        Long userId = 1L;
+
+        List<TeamDto> teamDtoList = teamService.ReadTeamByUser(userId);
+        System.out.println(userId + "user's team");
+        for(TeamDto d: teamDtoList)
+        {
+            int i = 1;
+            System.out.println(i + " | Team Name : "+ d.getTeamName()+ " / Team Type : "+ d.getTeamType());
+        }
+    }
 
     @Test
     public void DelMatch()

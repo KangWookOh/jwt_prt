@@ -30,8 +30,10 @@ public class GalleryService {
     private MusicRepository musicRepository;
     private VideoRepository videoRepository;
     private PictureRepository pictureRepository;
-    private PerformSessionRepository performSessionRepository;
+    //private PerformSessionRepository performSessionRepository;
     private ReplyRepository replyRepository;
+    private MatchRepository matchRepository;
+    private TeamRepository teamRepository;
 
     @Transactional
     public Long CreateGallery(BoardDto boardDto, Long userId, Long musicId){
@@ -231,19 +233,23 @@ public class GalleryService {
     }
 
 //find user by name -> find perform session by user -> find music by perform session -> find gallery by music
+    // find user by name -> find match by user -> find team by match -> find music by team -> find gallery by music
     @Transactional
     public List<BoardDto> findGalleryByUser(String userName){
         List<User> userList  = userRepository.findByUserName(userName);
+        List<Team> teamList = new ArrayList<>();
 
-        List<PerformSession> performSessionList = new ArrayList<>();
         for(User u : userList) {
-            List<PerformSession> psList = performSessionRepository.findByUserId(u.getId());
-            for(PerformSession ps : psList)performSessionList.add(ps);
+            List<Match> mList = matchRepository.findByUserId(u.getId());
+            for(Match m : mList)
+            {
+                teamList.add(m.getTeam());
+            }
         }
 
         List<Music> musicList = new ArrayList<>();
-        for(PerformSession ps : performSessionList){
-            musicList.add(ps.getMusic());
+        for(Team e : teamList){
+            musicList.addAll(musicRepository.findByTeamId(e.getId()));
         }
         //music list distinct
         musicList = musicList.stream().distinct().collect(Collectors.toList());

@@ -2,6 +2,7 @@ package com.cranesch.cranewebbackend.dto;
 
 import com.cranesch.cranewebbackend.entity.Music;
 import com.cranesch.cranewebbackend.entity.Perform;
+import com.cranesch.cranewebbackend.entity.Team;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class MusicDto {
 
     private Perform perform;
 
+    private Team team;
 
 //    public Music toEntity(){
 //        return Music.builder()
@@ -24,9 +26,10 @@ public class MusicDto {
 //    }
 
     @Builder
-    public MusicDto(String musicName, String musicSinger, Perform perform, String perform_name){
+    public MusicDto(String musicName, String musicSinger, Perform perform, String perform_name, Team team){
         this.musicName = musicName;
         this.musicSinger = musicSinger;
         this.perform = perform;
+        this.team = team;
     }
 }

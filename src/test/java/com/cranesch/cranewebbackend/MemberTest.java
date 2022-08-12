@@ -27,7 +27,7 @@ public class MemberTest {
 
         int i =1;
         for(User u : userList){
-            System.out.printf( i++ + ": " + u.getUserName() + " //세션 : " + u.getSession() + "\n");
+            System.out.printf( i++ + ": " + u.getUsername() + " //세션 : " + u.getSession() + "\n");
         }
     }
 
@@ -39,7 +39,7 @@ public class MemberTest {
 
         for(User u : sUserList)
         {
-            System.out.printf("id : " + u.getId() + " / User : " + u.getUserName() + " / th : "
+            System.out.printf("id : " + u.getId() + " / User : " + u.getUsername() + " / th : "
                     + u.getUserDept() + " / role : " + u.getUserRole()+ "\n");
         }
     }

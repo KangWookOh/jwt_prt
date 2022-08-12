@@ -19,29 +19,25 @@ import java.util.List;
 public class testController {
     private final UserService userService;
     @PostMapping("/signup")
-    public ResponseEntity<Long> SaveUser(@RequestBody UserDto userDto)
+    public ResponseEntity<Long> signUp(@RequestBody UserDto userDto)
     {
-        return ResponseEntity.ok(userService.SignUp(userDto));
+        Long userId = userService.SignUp(userDto);
+        return ResponseEntity.ok().body(userId);
+
     }
 
     @GetMapping("/user")
-    private ResponseEntity Userlist(){
-        return ResponseEntity.ok(userService.getAllUser());
-
+    public ResponseEntity Userlist(){
+        return ResponseEntity.ok().body(userService.getAllUser());
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable long id)
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody UserDto userDto,@PathVariable Long id)
     {
-        User user = userService.updateUser(id,userDto);
+        User user = userService.updateUser(id, userDto);
         return ResponseEntity.ok().body(user);
-    }
 
-    @DeleteMapping("/del/{id}")
-    public ResponseEntity deleUser(@PathVariable Long userid )
-    {
-         userService.DelUser(userid);
-         return (ResponseEntity) ResponseEntity.ok();
     }
 
 

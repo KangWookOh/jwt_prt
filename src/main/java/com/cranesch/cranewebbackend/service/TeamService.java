@@ -58,6 +58,7 @@ public class TeamService {
                 .team(optionalTeam.get())
                 .user(optionalUser.get())
                 .teamRole(matchDto.getTeamRole())
+                .session(matchDto.getSession())
                 .build();
 
         return matchRepository.save(match).getId();
@@ -100,12 +101,42 @@ public class TeamService {
                     .user(m.getUser())
                     .team(m.getTeam())
                     .teamRole(m.getMatchRole())
+                    .session(m.getSession())
                     .build();
 
             matchDtoList.add(dto);
         }
         return matchDtoList;
     }
+
+    //*
+    @Transactional(readOnly = true)
+    public List<TeamDto> ReadTeamByUser(Long userId)
+    {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty())
+        {
+            throw new EntityExistsException("User Not Exist");
+        }
+        List<Match> matchList = matchRepository.findByUserId(userId);
+        List<TeamDto> teamDtoList = new ArrayList<>();
+        List<Team> teamList =new ArrayList<>();
+        for(Match m : matchList)
+        {
+            teamList.add(m.getTeam());
+        }
+        for(Team t : teamList){
+            TeamDto dto = TeamDto.builder()
+                    .teamName(t.getTeamName())
+                    .teamType(t.getTeamType())
+                    .isActive(t.getIsActive())
+                    .build();
+            teamDtoList.add(dto);
+        }
+
+        return teamDtoList;
+    }
+
 
     @Transactional
     public void DeleteTeamMatch(Long matchId){

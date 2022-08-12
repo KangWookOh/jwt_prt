@@ -1,12 +1,10 @@
 package com.cranesch.cranewebbackend;
 
+import com.cranesch.cranewebbackend.dto.MatchDto;
 import com.cranesch.cranewebbackend.dto.MusicDto;
 import com.cranesch.cranewebbackend.dto.PerformDto;
-import com.cranesch.cranewebbackend.dto.PerformSessionDto;
-import com.cranesch.cranewebbackend.entity.Music;
-import com.cranesch.cranewebbackend.entity.Perform;
-import com.cranesch.cranewebbackend.entity.PerformSession;
-import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.dto.TeamDto;
+import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.enums.PerformType;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 import com.cranesch.cranewebbackend.service.PerformService;
@@ -18,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class PerformTest {
@@ -47,7 +47,7 @@ public class PerformTest {
         performService.CreateMusic(musicDto,Long.valueOf(4));
     }
 
-    @Test
+  /*  @Test
     public void SessionCreateTest()
     {
         PerformSessionDto sessionDto = PerformSessionDto.builder()
@@ -55,7 +55,7 @@ public class PerformTest {
                 .build();
 
         performService.CreatePerformSession(sessionDto, Long.valueOf(1),Long.valueOf(4));
-    }
+    }*/
 
     @Test
     public void ReadPerformTest()
@@ -70,7 +70,7 @@ public class PerformTest {
 
     @Test
     public void ReadMusicByPerform(){
-        Long performId = Long.valueOf(5);
+        Long performId = Long.valueOf(2);
         List<MusicDto> musicList = performService.ReadMusicListByPerform(performId);
 
         System.out.printf("공연 ID" + performId + "의 셋리 \n");
@@ -95,13 +95,21 @@ public class PerformTest {
     }
 
     @Test
-    public void ReadSessionByMusic()
+    public void ReadTeamByMusic()
     {
-        List<PerformSessionDto> userList = performService.ReadSessionByMusic(Long.valueOf(1));
+        TeamDto teamDto = performService.ReadTeamByMusic(Long.valueOf(1));
 
-        for(PerformSessionDto s: userList)
+            System.out.println("Team Type: " + teamDto.getTeamType() + " / Team Name: "+teamDto.getTeamName()+"\n");
+    }
+
+    @Test
+    public void ReadMatchByTeam()
+    {
+        List<MatchDto> matchDtoList = performService.ReadMatchByTeam(1L);
+
+        for(MatchDto m: matchDtoList)
         {
-            System.out.println("Session: "+ s.getSession() + " / Name: " + s.getUser().getUserName() +"\n");
+            System.out.println("Name : "+ m.getUser().getUsername() + " / Session : "+ m.getSession() + " / Match Role : "+ m.getTeamRole() + "\n");
         }
     }
 
@@ -119,12 +127,12 @@ public class PerformTest {
         performService.DelMusic(musicId);
     }
 
-    @Test
-    public void DelSessionTest()
-    {
-        Long sessionId = 1L;
-        performService.DelSession(sessionId);
-    }
+//    @Test
+//    public void DelSessionTest()
+//    {
+//        Long sessionId = 1L;
+//        performService.DelSession(sessionId);
+//    }
 
     @Test
     public void UpdateMusicTest()
@@ -137,16 +145,16 @@ public class PerformTest {
         performService.updateMusic(musicId, dto);
     }
 
-    @Test
-    public void UpdateSessionTest()
-    {
-        Long musicId = 5L;
-        Long userId = 3L;
-        PerformSessionDto dto = PerformSessionDto.builder()
-                .session(Session.KEYBOARD)
-                .build();
-        performService.updateSession(musicId, userId, dto);
-    }
+//    @Test
+//    public void UpdateSessionTest()
+//    {
+//        Long musicId = 5L;
+//        Long userId = 3L;
+//        PerformSessionDto dto = PerformSessionDto.builder()
+//                .session(Session.KEYBOARD)
+//                .build();
+//        performService.updateSession(musicId, userId, dto);
+//    }
 
     @Test
     public void UpdatePerformTest(){

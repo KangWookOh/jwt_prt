@@ -78,11 +78,11 @@ public class BoardTest {
     @Test
     public void ReadBoardByUser() {
 
-        List<BoardDto> UboardDtoList = boardService.ReadBoardByUser(Long.valueOf(1));
+        List<BoardDto> UboardDtoList = boardService.ReadBoardByUser(Long.valueOf(4));
 
         int i = 0;
         for (BoardDto b : UboardDtoList) {
-            System.out.printf("User : " + b.getUser().getUserName() + " / Title :" +
+            System.out.printf("User : " + b.getUser().getUsername() + " / Title :" +
                     b.getBoardTitle() + " / content : " + b.getBoardContents() +
                     " / boardCount : " + i + "\n");
         }

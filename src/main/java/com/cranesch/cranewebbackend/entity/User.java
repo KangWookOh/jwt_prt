@@ -3,20 +3,27 @@ package com.cranesch.cranewebbackend.entity;
 import com.cranesch.cranewebbackend.entity.enums.UserRole;
 import com.cranesch.cranewebbackend.entity.enums.Session;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,6 +54,10 @@ public class User {
 
     private boolean eCheck;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private final List<String> roles = new ArrayList<>();
+
     //update method test
     public void usernameUpdate(String userDept,String userPhoneNum){
         this.userDept = userDept;
@@ -71,4 +82,41 @@ public class User {
         this.eCheck = eCheck;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles
+                .stream().map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getUserEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

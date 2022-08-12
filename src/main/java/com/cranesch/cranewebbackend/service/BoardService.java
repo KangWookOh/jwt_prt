@@ -142,7 +142,6 @@ public class BoardService {
     }
 
 
-
     @Transactional(readOnly = true)
     public List<BoardDto> ReadBoardByUser(Long userId)
     {

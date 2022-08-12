@@ -48,7 +48,7 @@ public class UserService {
         List<UserDto> userDtoList = new ArrayList<>();
         for (User u : userList) {
             UserDto userDto = UserDto.builder()
-                    .userName(u.getUserName())
+                    .userName(u.getUsername())
                     .userTh(u.getUserTh())
                     .userStdId(u.getUserStdId())
                     .userRole(u.getUserRole())

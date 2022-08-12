@@ -3,6 +3,7 @@ package com.cranesch.cranewebbackend.dto;
 import com.cranesch.cranewebbackend.entity.Match;
 import com.cranesch.cranewebbackend.entity.Team;
 import com.cranesch.cranewebbackend.entity.User;
+import com.cranesch.cranewebbackend.entity.enums.Session;
 import com.cranesch.cranewebbackend.entity.enums.TeamRole;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class MatchDto {
 
     private Team team;
 
+    private Session session;
+
 //    public Match toEntity()
 //    {
 //        return Match.builder().
@@ -25,11 +28,13 @@ public class MatchDto {
 //                team(team).
 //                build();
 //    }
+
     @Builder
-    public MatchDto(User user,Team team,TeamRole teamRole)
+    public MatchDto(User user,Team team,TeamRole teamRole, Session session)
     {
         this.user=user;
         this.team=team;
         this.teamRole=teamRole;
+        this.session = session;
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MusicRepository extends JpaRepository<Music, Long> {
     List<Music> findByPerformId(Long id);
+    List<Music> findByTeamId(Long id);
 }
